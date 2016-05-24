@@ -1,6 +1,7 @@
 import datetime
 
 from flask.ext.login import UserMixin
+from flask.ext.bcryp import generate_password_hash
 import peewee as models
 
 
@@ -15,3 +16,15 @@ class User(UserMixin, models.Model):
 
     class Meta:
         database = DATABASE
+
+    @classmethod
+    def create_user(cls, username, email, password, admin=False):
+        try:
+            cls.create(
+                username=username,
+                email=email,
+                password=generate_password_hash(password),
+                is_admin=admin
+            )
+        except models.IntegrityError:
+            raise ValueError("User already exists")
