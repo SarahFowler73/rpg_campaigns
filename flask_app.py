@@ -37,14 +37,6 @@ def after_request(response):
     return response
 
 
-@app.route('/')
-def test_view(name="Sarah"):
-    return render_template(
-        'test_view.html',
-        message="Hello {}!".format(name)
-    )
-
-
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=DEBUG, port=PORT, host=HOST)
