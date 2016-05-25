@@ -1,7 +1,9 @@
-from flask import Flask, render_template, g
+from flask import (Flask, render_template, g, flash,
+                  redirect, url_for)
 from flask.ext.login import LoginManager
 
 import models
+import forms
 
 DEBUG = True
 PORT = 8888
@@ -9,7 +11,7 @@ HOST = 'localhost'
 
 
 app = Flask(__name__)
-app.secret_key = ""
+app.secret_key = "93048209840801973jhkjklm1l2k;jilo2j1iophf"
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -35,6 +37,26 @@ def after_request(response):
     """Close db conn after request"""
     g.db.close()
     return response
+
+
+# Views
+@app.route('/')
+def index():
+    return 'Front'
+
+
+@app.route('/register', methods=('GET', 'POST'))
+def register():
+    form = forms.RegistrationForm()
+    if form.validate_on_submit():
+        flash("Registration complete!", "success")
+        models.User.create_user(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        return redirect(url_for('index'))
+    return render_template('register.html', form=form)
 
 
 if __name__ == '__main__':
