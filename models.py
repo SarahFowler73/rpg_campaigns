@@ -1,7 +1,7 @@
 import datetime
 
 from flask.ext.login import UserMixin
-from flask.ext.bcryp import generate_password_hash
+from flask.ext.bcrypt import generate_password_hash
 import peewee as models
 
 
@@ -28,3 +28,9 @@ class User(UserMixin, models.Model):
             )
         except models.IntegrityError:
             raise ValueError("User already exists")
+
+
+def initialize():
+    DATABASE.connect()
+    DATABASE.create_tables([User], safe=True)
+    DATABASE.close()
