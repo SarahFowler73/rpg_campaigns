@@ -11,13 +11,16 @@ BASE_URL = 'localhost:8888'
 
 
 class TestRegistration(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.base_url = BASE_URL
-        self.driver.implicitly_wait(3)
+    driver = webdriver.Chrome()
+    base_url = BASE_URL
 
-    def tearDown(self):
-        self.driver.quit()
+    @classmethod
+    def setUpClass(cls):
+        cls.driver.implicitly_wait(3)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
 
     def test_homepage_exists(self):
         self.driver.get(self.base_url + '/')
