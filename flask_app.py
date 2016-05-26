@@ -44,7 +44,7 @@ def after_request(response):
 # Views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', message="This is totally a page!")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

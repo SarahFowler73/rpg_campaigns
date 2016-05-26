@@ -1,0 +1,11 @@
+.bottom {
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+}
+.centerall * {
+    text-align: center;
+}
+.spacedout * {
+    line-height: 1.6em;
+}
