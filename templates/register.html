@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% from 'macros.html' import render_field %}
 {% block title %}Registration{% endblock %}
 
 {% block content %}
@@ -7,14 +7,7 @@
     <form method="post" action="">
         {{ form.hidden_tag() }}
         {% for field in form %}
-        <div class="field">
-              {% if field.errors %}
-                {% for error in field.errors %}
-                <div>{{ error }}</div>
-                {% endfor %}
-              {% endif %}
-              {{ field(placeholder=field.label.text) }}
-        </div>
+        {{ render_field(field) }}
         {% endfor %}
     </form>
 {% endblock %}
