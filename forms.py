@@ -21,12 +21,12 @@ class RegistrationForm(Form):
         'Username',
         validators=[
             DataRequired(),
+            name_exists,
             Regexp(
                 r'^[a-zA-Z0-9_]+$',
                 message=("Username should be one word, letters, "
                          "numbers, and underscores only.")
-            ),
-            name_exists
+            )
         ]
     )
     email = StringField(
@@ -46,6 +46,14 @@ class RegistrationForm(Form):
         ]
     )
     password2 = PasswordField(
-        'Confirm Password',
-        validators=[DataRequired()]
+        'Confirm Password', validators=[DataRequired()]
+    )
+
+
+class LoginForm(Form):
+    email = StringField(
+        'Email', validators=[DataRequired(), Email()]
+    )
+    password = PasswordField(
+        'Password', validators=[DataRequired()]
     )
