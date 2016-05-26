@@ -42,7 +42,7 @@ def after_request(response):
 # Views
 @app.route('/')
 def index():
-    return 'Front'
+    return render_template('index.html')
 
 
 @app.route('/register', methods=('GET', 'POST'))
