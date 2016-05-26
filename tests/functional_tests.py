@@ -52,14 +52,19 @@ class TestRegistration(BaseTests.BaseFunctionalTest):
         )  # 4 form fields + csrf token field
 
     def test_register_has_correct_fields(self):
-        fields = [field.find_element_by_tag_name('input').get_attribute('id')
+        fields = [field.find_element_by_tag_name('input')
             for field in self.select('.field')]
 
-        self.assertEqual(fields[0], 'csrf_token')
-        self.assertEqual(fields[1], 'username')
-        self.assertEqual(fields[2], 'email')
-        self.assertEqual(fields[3], 'password')
-        self.assertEqual(fields[4], 'password2')
+        self.assertEqual(fields[0].get_attribute('id'), 'csrf_token')
+        self.assertEqual(fields[1].get_attribute('id'), 'username')
+        self.assertEqual(fields[2].get_attribute('id'), 'email')
+        self.assertEqual(fields[3].get_attribute('id'), 'password')
+        self.assertEqual(fields[4].get_attribute('id'), 'password2')
+
+        self.assertEqual(fields[1].get_attribute('type'), 'text')
+        self.assertEqual(fields[2].get_attribute('type'), 'text')
+        self.assertEqual(fields[3].get_attribute('type'), 'password')
+        self.assertEqual(fields[4].get_attribute('type'), 'password')
 
 
 if __name__ == '__main__':
