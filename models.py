@@ -36,6 +36,10 @@ class Character(models.Model):
     user = models.ForeignKeyField(User)
     creation_date = models.DateTimeField(default=datetime.datetime.now)
 
+    class Meta:
+        database = DATABASE
+        indexes = ((('character', 'user'), True),)
+
 
 class Game(models.Model):
     title = models.CharField(null=False)
@@ -45,6 +49,7 @@ class Game(models.Model):
 
     class Meta:
         database = DATABASE
+        indexes = ((('title', 'creator'), True),)
 
 
 class GameCharacter(models.Model):
@@ -55,6 +60,7 @@ class GameCharacter(models.Model):
 
     class Meta:
         database = DATABASE
+        indexes = ((('game', 'character'), True),)
 
 
 class GameSession(models.Model):
@@ -82,6 +88,7 @@ class UserGame(models.Model):
 
     class Meta:
         database = DATABASE
+        indexes = ((('user', 'game'), True),)
 
 
 def initialize():
