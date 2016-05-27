@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, TextAreaField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
 
@@ -57,3 +57,13 @@ class LoginForm(Form):
     password = PasswordField(
         'Password', validators=[DataRequired()]
     )
+
+
+class CreateGame(Form):
+    game_title = StringField(
+        'Game Title',
+        validators=[DataRequired(), Length(max=100)])
+
+
+class GameSession(Form):
+    session_notes = TextAreaField('Session Notes', validators=[DataRequired()])

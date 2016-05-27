@@ -2,7 +2,7 @@ from flask import (Flask, render_template, g, flash,
                    redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
 from flask.ext.login import (LoginManager, login_user, logout_user,
-                             login_required)
+                             login_required, current_user)
 
 import models
 import forms
@@ -32,6 +32,7 @@ def before_request():
     """Connect to the database before request"""
     g.db = models.DATABASE
     g.db.connect()
+    g.user = current_user
 
 
 @app.after_request
@@ -85,6 +86,20 @@ def register():
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
 
+
+@app.route('/create_game', methods=('GET', 'POST'))
+@login_required
+def post():
+    form = forms.CreateGame()
+    if form.validate_on_submit():
+        title = form.game_title.data.strip()
+        models.Game.create(
+            creator=g.user._get_current_object(),
+            title=title
+        )
+        flash("New game, {} created!".format(title), 'success')
+        return redirect(url_for('index'))
+    return render_template('create_game.html', form=form)
 
 if __name__ == '__main__':
     models.initialize()
