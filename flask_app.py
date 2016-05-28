@@ -89,7 +89,7 @@ def register():
 
 @app.route('/create_game', methods=('GET', 'POST'))
 @login_required
-def post():
+def create_game():
     form = forms.CreateGame()
     if form.validate_on_submit():
         title = form.game_title.data.strip()
