@@ -20,20 +20,40 @@ class User(UserMixin, models.Model):
     @classmethod
     def create_user(cls, username, email, password, admin=False):
         try:
-            cls.create(
-                username=username,
-                email=email,
-                password=generate_password_hash(password),
-                is_admin=admin
-            )
+            with DATABASE.transaction():
+                cls.create(
+                    username=username,
+                    email=email,
+                    password=generate_password_hash(password),
+                    is_admin=admin
+                )
         except models.IntegrityError:
             raise ValueError("User already exists")
 
+    def get_games(self):
+        return (
+            Game.select()
+                .join(GameCharacter)
+                .join(Character)
+                .join(User)
+                .where(
+                    (Game.creator == self) |
+                    (Character.user ==  self))
+                .group_by(Game.id)
+        )
+
 
 class Character(models.Model):
-    character = models.PrimaryKeyField(unique=True, null=False)
+    character = models.CharField(unique=True, null=False)
     user = models.ForeignKeyField(User, related_name='characters')
     creation_date = models.DateTimeField(default=datetime.datetime.now)
+
+    def get_games(self):
+        return (
+            Game.select(Game, GameCharacter)
+                .join(GameCharacter)
+                .where(GameCharacter.character == self)
+        )
 
     class Meta:
         database = DATABASE
@@ -46,6 +66,18 @@ class Game(models.Model):
     creation_date = models.DateTimeField(default=datetime.datetime.now)
     last_active_date = models.DateTimeField(null=True)
 
+    def get_characters(self):
+        return GameCharacter.select().where(GameCharacter.game == self)
+
+    def get_players(self):
+        return (
+            self.get_characters()
+                .select(User.username, GameCharacter)
+                .join(Character)
+                .join(User)
+                .group_by(Character.user)
+        )
+
     class Meta:
         database = DATABASE
         indexes = ((('title', 'creator'), True),)
@@ -55,7 +87,6 @@ class Game(models.Model):
 class GameCharacter(models.Model):
     character = models.ForeignKeyField(
         Character,
-        to_field='character',
         related_name='games')
     game = models.ForeignKeyField(Game, related_name='characters')
     stat_type = models.CharField(max_length=255)
@@ -63,7 +94,7 @@ class GameCharacter(models.Model):
 
     class Meta:
         database = DATABASE
-        indexes = ((('game', 'character'), True),)
+        indexes = ((('game', 'character', 'stat_type'), True),)
 
 
 class GameSession(models.Model):
@@ -95,9 +126,29 @@ class UserGame(models.Model):
         indexes = ((('user', 'game'), True),)
 
 
+class UserUser(models.Model):
+    from_user = models.ForeignKeyField(User, related_name="relationships")
+    to_user = models.ForeignKeyField(User, related_name='related_to')
+
+    class Meta:
+        database = DATABASE
+        indexes = ((('from_user', 'to_user'), True),)
+
+
 def initialize():
     DATABASE.connect()
     DATABASE.create_tables(
         [User, Game, Character, GameCharacter],
         safe=True)
+    # with DATABASE.transaction():
+    #     import pdb; pdb.set_trace()
+    #     Character.create(character='Jane Doe', user=2)
+    #     GameCharacter.create(
+    #         character=1,
+    #         game=1,
+    #         stat_type="ADDED",
+    #         stat_value=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    #     )
+    #     GameCharacter.create(character=1, game=1, stat_type='NAME', stat_value='Jane Doe')
+
     DATABASE.close()
