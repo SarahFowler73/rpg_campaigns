@@ -3,3 +3,5 @@ local_settings.py
 rpg.db
 npm-debug.log
 node_modules
+db.sqlite3
+
