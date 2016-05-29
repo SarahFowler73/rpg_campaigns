@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth import User
+from django.contrib.auth.models import User
 
 
 class Character(models.Model):
@@ -40,7 +40,7 @@ class Game(models.Model):
 
     class Meta:
         unique_together = (('title', 'creator'),)
-        order_by = ('last_active_date', 'creation_date')
+        ordering = ['last_active_date', 'creation_date']
 
 
 class GameCharacter(models.Model):
@@ -64,7 +64,7 @@ class GameSession(models.Model):
     last_updated = models.DateTimeField(null=True)
 
     class Meta:
-        order_by = ('session_date',)
+        ordering = ['session_date',]
 
 
 class UserGame(models.Model):
