@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Character(models.Model):
-    character = models.CharField(unique=True, null=False)
+    character = models.CharField(max_length=255, unique=True, null=False)
     user = models.ForeignKey(User, related_name='characters')
     creation_date = models.DateTimeField(auto_now=True)
 
@@ -57,7 +57,7 @@ class GameCharacter(models.Model):
 
 class GameSession(models.Model):
     game = models.ForeignKey(Game, related_name='sessions')
-    session_title = models.CharField(default='')
+    session_title = models.CharField(max_length=255, default='')
     session_text = models.TextField(default='')
     session_date = models.DateTimeField(null=True)
     entry_created = models.DateTimeField(auto_now=True)
@@ -71,8 +71,13 @@ class UserGame(models.Model):
     user = models.ForeignKey(User, related_name='games')
     game = models.ForeignKey(Game, related_name='users')
     is_owner = models.BooleanField(default=False)
-    status = models.CharField(
-        choices=('PENDING', 'ACTIVE', 'RETIRED', 'REMOVED')
+    status = models.CharField(max_length=7,
+        choices=(
+            ('PENDING', 'PENDING'),
+            ('ACTIVE', 'ACTIVE'),
+            ('RETIRED', 'RETIRED'),
+            ('REMOVED', 'REMOVED')
+        )
     )
     join_date = models.DateTimeField(null=True)
     last_active_date = models.DateTimeField(null=True)
