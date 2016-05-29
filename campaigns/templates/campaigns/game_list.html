@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h5>Your Recent Game Activity</h5>
+    {% for game in games %}
+        <h6><a href="{{ url_for('game', id=game.id)}}">{{ game.title }}</a></h6>
+        <p>Created by <a href="{{ url_for('user', username=game.creator.username) }}">{{ game.creator.username }}</a> on
+            <span datetime="{ game.creation_date.strftime('%Y-%m-%d') }}">
+                {{ game.creation_date.strftime('%Y-%m-%d') }}
+            </span>
+        </p>
+        <p>Last Activity:
+            {% if game.last_active_date %}
+            <span datetime="{{ game.last_active_date.strftime('%Y-%m-%d %H %M %S') }}">
+                {{ game.last_active_date.strftime('%Y-%m-%d %H %M %S') }}
+            </span>
+            {% else %}Never
+            {% endif %}
+        </p>
+    {% endfor %}
+{% endblock %}

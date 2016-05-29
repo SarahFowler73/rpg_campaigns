@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}RPG Creator{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/static/css/stupid.css">
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <link rel="shortcut icon" href="static/images/d20.ico">
+
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script>window.html5 || document.write('<script src="/static/js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+    </head>
+    <body class="spacedout">
+
+        <header >
+          <div class='container padded'>
+              <div class="fill middle centerall">
+                <ul class="menu">
+                <li class="third">
+                  <a href="{{ url_for('index') }}">Home</a>
+                </li>
+
+                <li class="third">
+                    <p>Welcome{% if current_user.is_authenticated %} back, {{ current_user.username }}{% endif %}!</p>
+                </li>
+
+                <li class="third">
+                    <!-- Log in/Log out -->
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}" class="">Log Out</a>
+                    {% else %}
+                        <span>
+                            <a href="{{ url_for('login') }}" class="">Log In</a>|
+                            <a href="{{ url_for('register') }}" class="">Sign Up</a>
+                        </span>
+                    {% endif %}
+                </li>
+            </div>
+          </div>
+
+        </header>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class='notification {{ category }}'>{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="row">
+
+          <div class="main">
+
+            <nav class="sidebar silver">
+                <ul class="padded">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('create_game') }}">Create New Game</a></li>
+                    <li><a href="/">Your Games</a></li>
+                    <li><a href="/">Your Characters</a></li>
+                    <li><a href='/'>Your Friends</a></li>
+                </ul>
+            </nav>
+
+            <div class="container padded center">
+                <div class="half centerall">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <footer class="container padded bottom">
+
+          <div class="row">
+
+            <p>A pen and paper role playing game manager<br>by <a href="http://github.com/SarahFowler73">Sarah Fowler</a></p>
+
+          </div>
+
+        </footer>
+        <script src="https://use.fontawesome.com/81abc2c449.js"></script>
+    </body>
+</html>
