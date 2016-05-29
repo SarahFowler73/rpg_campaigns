@@ -8,7 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 To run end-to-end, functional tests using selenium webdriver
 """
 
-BASE_URL = 'localhost:8888'
+BASE_URL = 'localhost:8000'
 
 
 class BaseTests:
@@ -31,7 +31,7 @@ class BaseTests:
             except NoSuchElementException:
                 return []
 
-@unittest.skip
+
 class TestHomepage(BaseTests.BaseFunctionalTest):
     def test_homepage_exists(self):
         self.driver.get(self.base_url + '/')
