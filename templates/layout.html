@@ -11,7 +11,7 @@
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/stupid.css' %}">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        <link rel="shortcut icon" href="{% static 'images/d20.ico' %}">
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -25,7 +25,7 @@
               <div class="fill middle centerall">
                 <ul class="menu">
                 <li class="third">
-                  <a href="url_for('index')">Home</a>
+                  <a href="{% url 'views.index' %}">Home</a>
                 </li>
 
                 <li class="third">
@@ -35,11 +35,11 @@
                 <li class="third">
                     <!-- Log in/Log out -->
                     {% if current_user.is_authenticated %}
-                        <a href="url_for('logout')" class="">Log Out</a>
+                        <a href="{ url 'views.logout' }" class="">Log Out</a>
                     {% else %}
                         <span>
-                            <a href="url_for('login')" class="">Log In</a>|
-                            <a href="url_for('register')" class="">Sign Up</a>
+                            <a href="{ url 'views.login' }" class="">Log In</a>|
+                            <a href=" url 'views.register' " class="">Sign Up</a>
                         </span>
                     {% endif %}
                 </li>
@@ -62,8 +62,8 @@
 
             <nav class="sidebar silver">
                 <ul class="padded">
-                    <li><a href="url_for('index')">Home</a></li>
-                    <li><a href="url_for('create_game')">Create New Game</a></li>
+                    <li><a href="{% url 'views.index' %}">Home</a></li>
+                    <li><a href=" url 'create_game' ">Create New Game</a></li>
                     <li><a href="/">Your Games</a></li>
                     <li><a href="/">Your Characters</a></li>
                     <li><a href='/'>Your Friends</a></li>
