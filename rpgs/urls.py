@@ -22,6 +22,8 @@ from . import views
 urlpatterns = [
     url(r'^campaigns/', include('campaigns.urls', namespace='campaigns')),
     url(r'^register/', views.register, name='register'),
+    url(r'^login/', views.login, name='login'),
+    url(r'^logout/', views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
 ]

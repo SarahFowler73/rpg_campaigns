@@ -1,14 +1,12 @@
 {% extends "layout.html" %}
-{% from 'macros.html' import render_field %}
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
     <h2> Log In </h2>
     <form method="post" action="">
-        {{ form.hidden_tag() }}
-        {% for field in form %}
-            {{ render_field(field) }}
-        {% endfor %}
+        {{ form.as_p }}
+        {% csrf_token %}
         <button type='submit' id='submit'>Login</button>
     </form>
 {% endblock %}
