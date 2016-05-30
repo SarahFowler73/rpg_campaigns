@@ -43,7 +43,7 @@ class TestRegistration(BaseTests.BaseFunctionalTest):
         self.driver.get(self.base_url + '/register')
 
     def tearDown(self):
-        for field in self.select('.field input'):
+        for field in self.select('form p input'):
             if field.get_attribute('type') in ['text', 'password']:
                 field.clear()
 
@@ -51,22 +51,22 @@ class TestRegistration(BaseTests.BaseFunctionalTest):
         self.assertIn(self.driver.title, 'Registration')
 
     def test_register_has_fields(self):
-        # 4 form fields + csrf token field
-        self.assertEqual(len(self.select('.field')), 5)
+        self.assertEqual(len(self.select('form p input')), 5)
 
     def test_register_has_correct_fields(self):
-        fields = self.select('.field input')
+        fields = self.select('form p input')
 
-        self.assertEqual(fields[0].get_attribute('id'), 'csrf_token')
-        self.assertEqual(fields[1].get_attribute('id'), 'username')
-        self.assertEqual(fields[2].get_attribute('id'), 'email')
-        self.assertEqual(fields[3].get_attribute('id'), 'password')
-        self.assertEqual(fields[4].get_attribute('id'), 'password2')
+        self.assertEqual(fields[0].get_attribute('id'), 'id_username')
+        self.assertEqual(fields[1].get_attribute('id'), 'id_email')
+        self.assertEqual(fields[2].get_attribute('id'), 'id_password')
+        self.assertEqual(fields[3].get_attribute('id'), 'id_password2')
+        self.assertEqual(fields[4].get_attribute('id'), 'id_pooh')
 
-        self.assertEqual(fields[1].get_attribute('type'), 'text')
-        self.assertEqual(fields[2].get_attribute('type'), 'text')
+        self.assertEqual(fields[0].get_attribute('type'), 'text')
+        self.assertEqual(fields[1].get_attribute('type'), 'email')
+        self.assertEqual(fields[2].get_attribute('type'), 'password')
         self.assertEqual(fields[3].get_attribute('type'), 'password')
-        self.assertEqual(fields[4].get_attribute('type'), 'password')
+        self.assertEqual(fields[4].get_attribute('type'), 'hidden')
 
     def test_validation_fails_when_incorrect(self):
         pass
@@ -80,7 +80,7 @@ class TestLogin(BaseTests.BaseFunctionalTest):
         self.driver.get(self.base_url + '/login')
 
     def tearDown(self):
-        for field in self.select('.field input'):
+        for field in self.select('form p input'):
             if field.get_attribute('type') in ['text', 'password']:
                 field.clear()
 
@@ -88,19 +88,17 @@ class TestLogin(BaseTests.BaseFunctionalTest):
         self.assertIn(self.driver.title, 'Login')
 
     def test_login_has_fields(self):
-        # 2 form fields + csrf token field
-        self.assertEqual(len(self.select('.field')), 3)
+        self.assertEqual(len(self.select('form p')), 2)
 
     def test_login_has_correct_fields(self):
         fields = [field.find_element_by_tag_name('input')
-            for field in self.select('.field')]
+            for field in self.select('form p')]
 
-        self.assertEqual(fields[0].get_attribute('id'), 'csrf_token')
-        self.assertEqual(fields[1].get_attribute('id'), 'email')
-        self.assertEqual(fields[2].get_attribute('id'), 'password')
+        self.assertEqual(fields[0].get_attribute('id'), 'id_username')
+        self.assertEqual(fields[1].get_attribute('id'), 'id_password')
 
-        self.assertEqual(fields[1].get_attribute('type'), 'text')
-        self.assertEqual(fields[2].get_attribute('type'), 'password')
+        self.assertEqual(fields[0].get_attribute('type'), 'text')
+        self.assertEqual(fields[1].get_attribute('type'), 'password')
 
 
 if __name__ == '__main__':
