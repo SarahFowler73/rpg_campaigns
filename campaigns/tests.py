@@ -2,8 +2,9 @@ from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.core.urlresolvers import reverse
 
-from .models import Character, Game
+from .models import Character, Game, GameCharacter
 
 
 class BaseTests:
@@ -62,27 +63,39 @@ class GameModelTests(BaseTests.BaseModelTests):
 
 
 class GameCharacterModelTests(BaseTests.BaseModelTests):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
+        super(GameCharacterModelTests, cls).setUpClass()
         GameCharacter.objects.create(
             character_id=1,
-            game = models.ForeignKey(Game, related_name='characters')
-            stat_type = models.CharField(max_length=255)
-            stat_value = models.TextField(default=''
-        )
+            game_id=1,
+            stat_type='CHARISMA',
+            stat_value='12')
+
+    @classmethod
+    def tearDownClass(cls):
+        super(GameCharacterModelTests, cls).tearDownClass()
+        GameCharacter.objects.all().delete()
 
     def test_game_character_stat_unique(self):
-        GameCharacter.objects.create(
-            creator_id=1,
-            title='My Cool Game')
-
         with self.assertRaises(IntegrityError):
-            Game.objects.create(
-                creator_id=1,
-                title='My Cool Game')
+            GameCharacter.objects.create(
+                character_id=1,
+                game_id=1,
+                stat_type='CHARISMA',
+                stat_value='15')
 
-    def test_created_date_set(self):
-        game, c = Game.objects.get_or_create(
-            creator_id=1,
-            title='My REALLY Cool Game')
-        now = timezone.now()
-        self.assertLess(game.creation_date, now)
+
+class ViewTest(TestCase):
+    def test_index_view(self):
+        resp = self.client.get(reverse('index'))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'index.html')
+        self.assertContains(resp, 'Home')
+
+    def test_register_view(self):
+        resp = self.client.get(reverse('register'))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn('password', resp.context['form'].fields)
+        self.assertTemplateUsed(resp, 'register.html')
+        self.assertContains(resp, 'Register')
