@@ -84,18 +84,3 @@ class GameCharacterModelTests(BaseTests.BaseModelTests):
                 game_id=1,
                 stat_type='CHARISMA',
                 stat_value='15')
-
-
-class ViewTest(TestCase):
-    def test_index_view(self):
-        resp = self.client.get(reverse('index'))
-        self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'index.html')
-        self.assertContains(resp, 'Home')
-
-    def test_register_view(self):
-        resp = self.client.get(reverse('register'))
-        self.assertEqual(resp.status_code, 200)
-        self.assertIn('password', resp.context['form'].fields)
-        self.assertTemplateUsed(resp, 'register.html')
-        self.assertContains(resp, 'Register')
