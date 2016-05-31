@@ -19,73 +19,67 @@
         <![endif]-->
     </head>
     <body class="spacedout">
+        <div class='wrap'>
+            <header >
+              <div class='container padded'>
+                  <div class="fill middle centerall">
+                    <ul class="menu">
+                    <li class="third">
+                      <a href="{% url 'views.index' %}">Home</a>
+                    </li>
 
-        <header >
-          <div class='container padded'>
-              <div class="fill middle centerall">
-                <ul class="menu">
-                <li class="third">
-                  <a href="{% url 'views.index' %}">Home</a>
-                </li>
+                    <li class="third">
+                        <p>Welcome{% if user.is_authenticated %} back, {{ user.username }}{% endif %}!</p>
+                    </li>
 
-                <li class="third">
-                    <p>Welcome{% if user.is_authenticated %} back, {{ user.username }}{% endif %}!</p>
-                </li>
-
-                <li class="third">
-                    <!-- Log in/Log out -->
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'views.logout' %}" class="">Log Out</a>
-                    {% else %}
-                        <span>
-                            <a href="{% url 'views.login' %}" class="">Log In</a>|
-                            <a href="{% url 'views.register' %}" class="">Sign Up</a>
-                        </span>
-                    {% endif %}
-                </li>
-            </div>
-          </div>
-
-        </header>
-
-        <!-- Flash messages-->
-        {% if messages %}
-            {% for message in messages %}
-                <div class='notification {{ message.tags }}'>{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        <div class="row">
-
-          <div class="main">
-
-            <nav class="sidebar silver">
-                <ul class="padded">
-                    <li><a href="{% url 'views.index' %}">Home</a></li>
-                    <li><a href=" url 'create_game' ">Create New Game</a></li>
-                    <li><a href="/">Your Games</a></li>
-                    <li><a href="/">Your Characters</a></li>
-                    <li><a href='/'>Your Friends</a></li>
-                </ul>
-            </nav>
-
-            <div class="container padded center">
-                <div class="half centerall">
-                    {% block content %}{% endblock %}
+                    <li class="third">
+                        <!-- Log in/Log out -->
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'views.logout' %}" class="">Log Out</a>
+                        {% else %}
+                            <span>
+                                <a href="{% url 'views.login' %}" class="">Log In</a>|
+                                <a href="{% url 'views.register' %}" class="">Sign Up</a>
+                            </span>
+                        {% endif %}
+                    </li>
                 </div>
+              </div>
+
+            </header>
+
+            <!-- Flash messages-->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class='notification {{ message.tags }}'>{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+
+              <div class="main">
+
+                <nav class="sidebar silver">
+                    <ul class="padded">
+                        <li><a href="{% url 'views.index' %}">Home</a></li>
+                        <li><a href=" url 'create_game' ">Create New Game</a></li>
+                        <li><a href="/">Your Games</a></li>
+                        <li><a href="/">Your Characters</a></li>
+                        <li><a href='/'>Your Friends</a></li>
+                    </ul>
+                </nav>
+
+                <div class="container padded center">
+                    <div class="half centerall">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+              </div>
             </div>
-
-          </div>
-
         </div>
-
-        <footer class="container padded bottom">
-
-          <div class="row">
-
-            <p>A pen and paper role playing game manager<br>by <a href="http://github.com/SarahFowler73">Sarah Fowler</a></p>
-
-          </div>
-
+        <footer class="container padded align-right bottom">
+            <p>A pen and paper role playing game manager
+                <br>by <a href="http://github.com/SarahFowler73">Sarah Fowler</a>
+            </p>
         </footer>
         <script src="https://use.fontawesome.com/81abc2c449.js"></script>
     </body>

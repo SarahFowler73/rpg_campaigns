@@ -1,8 +1,11 @@
-.bottom {
+/*.bottom {
     bottom: 0px;
     position: absolute;
-    width: 100%;
 }
+.align-right {
+    right: 0px;
+    position: absolute;
+}*/
 .centerall * {
     text-align: center;
 }
@@ -22,4 +25,7 @@
 }
 .success {
     background-color: #3d9970;
+}
+.wrap {
+    min-height: calc(100vh - 78px);
 }
