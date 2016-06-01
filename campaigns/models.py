@@ -50,6 +50,7 @@ class GameCharacter(models.Model):
     game = models.ForeignKey(Game, related_name='characters')
     stat_type = models.CharField(max_length=255)
     stat_value = models.TextField(default='')
+    is_pc = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('game', 'character', 'stat_type'),)
