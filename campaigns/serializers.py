@@ -6,6 +6,7 @@ from . import models
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Character
+        fields = ('character', 'user', 'creation_date')
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -15,8 +16,11 @@ class GameSerializer(serializers.ModelSerializer):
 
 
 class GameCharacterSerializer(serializers.ModelSerializer):
+    games = GameSerializer(many=True)
+    characters = CharacterSerializer(many=True)
     class Meta:
         model = models.GameCharacter
+        fields = '__all__'
 
 
 class GameSessionSerializer(serializers.ModelSerializer):
