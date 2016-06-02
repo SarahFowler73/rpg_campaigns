@@ -43,17 +43,39 @@ class Game(models.Model):
         ordering = ['last_active_date', 'creation_date']
 
 
-class GameCharacter(models.Model):
+class GameItem(models.Model):
+    game = models.ForeignKey(Game)
+    stat_type = models.CharField(max_length=255)
+    stat_value = models.TextField(default='')
+
+    class Meta:
+        unique_together = (('game', 'stat_type', 'stat_value'),)
+        abstract = True
+
+
+class GameCharacter(GameItem):
     character = models.ForeignKey(
         Character,
         related_name='games')
-    game = models.ForeignKey(Game, related_name='characters')
-    stat_type = models.CharField(max_length=255)
-    stat_value = models.TextField(default='')
-    is_pc = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = (('game', 'character', 'stat_type'),)
+        unique_together = (('game', 'character', 'stat_type', 'stat_value'),)
+
+
+class GameNPC(GameItem):
+    pass
+
+
+class GameLocation(GameItem):
+    pass
+
+
+class GameMap(GameItem):
+    pass
+
+
+class GameAsset(GameItem):
+    pass
 
 
 class GameSession(models.Model):
@@ -86,6 +108,7 @@ class UserGame(models.Model):
 
     class Meta:
         unique_together = (('user', 'game'),)
+
 
 class UserUser(models.Model):
     from_user = models.ForeignKey(User, related_name="relationships")
