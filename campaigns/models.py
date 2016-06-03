@@ -45,12 +45,18 @@ class Game(models.Model):
 
 class GameItem(models.Model):
     game = models.ForeignKey(Game)
-    stat_type = models.CharField(max_length=255)
+    stat_name = models.CharField(max_length=255)
     stat_value = models.TextField(default='')
-    # val_numeric = models.BooleanField(default=False)
+    val_type = models.CharField(max_length=4,
+        choices = (
+            ("NUM", "NUMERIC"),
+            ("TXT", 'TEXT'),
+            # ('IMG', 'IMAGE'),
+        )
+    )
 
     class Meta:
-        unique_together = (('game', 'stat_type', 'stat_value'),)
+        unique_together = (('game', 'stat_name', 'stat_value'),)
         abstract = True
 
 
@@ -60,7 +66,7 @@ class GameCharacter(GameItem):
         related_name='games')
 
     class Meta:
-        unique_together = (('game', 'character', 'stat_type', 'stat_value'),)
+        unique_together = (('game', 'character', 'stat_name', 'stat_value'),)
 
 
 class GameNPC(GameItem):
