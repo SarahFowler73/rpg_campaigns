@@ -49,7 +49,7 @@ class GameCharacter(models.Model):
     character = models.ForeignKey(
         Character,
         related_name='games')
-    game = models.ForeignKey(Game)
+    game = models.ForeignKey(Game, related_name="characters")
 
     class Meta:
         unique_together = (('game', 'character'),)

@@ -15,15 +15,30 @@ class GameSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CharacterStatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CharacterStat
+
+
 class GameCharacterSerializer(serializers.ModelSerializer):
     game = GameSerializer
     character = CharacterSerializer
+    stats = CharacterStatSerializer(many=True)
 
     class Meta:
         model = models.GameCharacter
         fields = '__all__'
 
 
+class ItemStatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ItemStat
+
+
+class GameItemSerializer(serializers.ModelSerializer):
+    stats = ItemStatSerializer(many=True)
+    class Meta:
+        model = models.GameItem
 
 
 class GameSessionSerializer(serializers.ModelSerializer):
@@ -32,10 +47,10 @@ class GameSessionSerializer(serializers.ModelSerializer):
 
 
 class GameDetailSerializer(serializers.ModelSerializer):
-    gamecharacter_set = GameCharacterSerializer(many=True)
-    #todo
+    characters = GameCharacterSerializer(many=True)
+    items = GameItemSerializer(many=True)
     sessions = GameSessionSerializer(many=True)
 
     class Meta:
         model = models.Game
-        fields = ('title', 'creator', 'gamecharacter_set', 'gamenpc_set', 'gamelocation_set', 'sessions')
+        fields = ('title', 'creator', 'description', 'characters', 'items', 'sessions')
