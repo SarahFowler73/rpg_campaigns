@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 
 
 class Character(models.Model):
-    character = models.CharField(max_length=255, unique=True, null=False)
+    character = models.CharField(max_length=255, null=False)
     user = models.ForeignKey(User, related_name='characters')
     creation_date = models.DateTimeField(auto_now=True)
+    description = models.TextField(blank=True)
 
     # def get_games(self):
     #     return (
@@ -22,6 +23,7 @@ class Character(models.Model):
 
 class Game(models.Model):
     title = models.CharField(max_length=100, null=False)
+    description = models.TextField(blank=True)
     creator = models.ForeignKey(User, related_name='created_games')
     creation_date = models.DateTimeField(auto_now=True)
     last_active_date = models.DateTimeField(null=True)
@@ -43,46 +45,67 @@ class Game(models.Model):
         ordering = ['last_active_date', 'creation_date']
 
 
-class GameItem(models.Model):
+class GameCharacter(models.Model):
+    character = models.ForeignKey(
+        Character,
+        related_name='games')
     game = models.ForeignKey(Game)
+
+    class Meta:
+        unique_together = (('game', 'character'),)
+
+
+class GameCharacterCharacter(models.Model):
+    from_character = models.ForeignKey(GameCharacter, related_name="bonds")
+    to_character = models.ForeignKey(GameCharacter, related_name="bonded_to")
+    bond = models.CharField(max_length=255)
+    creation_date = models.DateField(auto_now_add=True)
+    expiration_date = models.DateField(null=True)
+
+    class Meta:
+        unique_together = (('from_character', 'to_character', 'bond'))
+
+
+class GameItem(models.Model):
+    game = models.ForeignKey(Game, related_name='items')
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    item_type = models.CharField(max_length=3,
+        choices = (
+            ('NPC', "NPC"),
+            ("LOC", 'Location'),
+        )
+    )
+    class Meta:
+        unique_together = (('game', 'name'),)
+
+
+class Stat(models.Model):
     stat_name = models.CharField(max_length=255)
     stat_value = models.TextField(default='')
     val_type = models.CharField(max_length=4,
         choices = (
             ("NUM", "NUMERIC"),
             ("TXT", 'TEXT'),
-            # ('IMG', 'IMAGE'),
+            ('IMG', 'IMAGE'),
         )
     )
-
     class Meta:
-        unique_together = (('game', 'stat_name', 'stat_value'),)
         abstract = True
 
 
-class GameCharacter(GameItem):
-    character = models.ForeignKey(
-        Character,
-        related_name='games')
+class CharacterStat(Stat):
+    game_character = models.ForeignKey(GameCharacter, related_name='stats')
 
     class Meta:
-        unique_together = (('game', 'character', 'stat_name', 'stat_value'),)
+        unique_together = (('game_character', 'stat_name', 'stat_value'),)
 
 
-class GameNPC(GameItem):
-    pass
+class ItemStat(Stat):
+    item = models.ForeignKey(GameItem, related_name='stats')
 
-
-class GameLocation(GameItem):
-    pass
-
-
-class GameMap(GameItem):
-    pass
-
-
-class GameAsset(GameItem):
-    pass
+    class Meta:
+        unique_together = (('item', 'stat_name', 'stat_value'),)
 
 
 class GameSession(models.Model):
