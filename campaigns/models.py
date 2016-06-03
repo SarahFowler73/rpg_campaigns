@@ -47,6 +47,7 @@ class GameItem(models.Model):
     game = models.ForeignKey(Game)
     stat_type = models.CharField(max_length=255)
     stat_value = models.TextField(default='')
+    # val_numeric = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('game', 'stat_type', 'stat_value'),)

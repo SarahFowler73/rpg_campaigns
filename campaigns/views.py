@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics
 
 
@@ -18,10 +19,21 @@ class GameCharacterView(viewsets.ModelViewSet):
         )
 
 
-class GameView(viewsets.ModelViewSet):
+class GameSessionView(viewsets.ModelViewSet):
+    pass
+
+
+class GameListView(generics.ListAPIView):
     serializer_class = serializers.GameSerializer
     def get_queryset(self):
         return models.Game.objects.filter(
-            Q(characters__character__user_id=self.request.user.id) |
+            Q(gamecharacter__character__user_id=self.request.user.id) |
             Q(creator_id=self.request.user.id)
-        )
+        ).prefetch_related()
+
+
+class GameDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.GameDetailSerializer
+
+    def get_queryset(self):
+        return models.Game.objects.filter(id=int(self.kwargs['pk']))

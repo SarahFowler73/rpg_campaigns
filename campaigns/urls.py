@@ -7,6 +7,12 @@ router = DefaultRouter()
 
 router.register(r'character', views.CharacterView, base_name='character')
 router.register(r'game_character', views.GameCharacterView, base_name='game_character')
-router.register(r'game', views.GameView, base_name='game')
 
-urlpatterns = router.urls
+urlpatterns = [
+    url(r'game/(?P<pk>[0-9]+)/?$', views.GameDetailView.as_view(), name='game_detail'),
+    url(r'game', views.GameListView.as_view(), name='game_list'),
+
+]
+
+
+urlpatterns += router.urls
