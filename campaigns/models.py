@@ -74,6 +74,7 @@ class GameItem(models.Model):
         choices = (
             ('NPC', "NPC"),
             ("LOC", 'Location'),
+            ("ITM", 'Item'),
         )
     )
     class Meta:

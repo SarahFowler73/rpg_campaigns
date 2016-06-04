@@ -52,15 +52,25 @@ class GameModelTests(BaseTests.BaseModelTests):
         with self.assertRaises(IntegrityError):
             Game.objects.create(
                 creator_id=1,
-                title='My Cool Game')
+                title='My Cool Game',
+                description='I described it!')
 
     def test_created_date_set(self):
         game, c = Game.objects.get_or_create(
             creator_id=1,
-            title='My REALLY Cool Game')
+            title='My REALLY Cool Game',
+            description="I described this, too!")
         now = timezone.now()
         self.assertLess(game.creation_date, now)
 
+    def test_description_unneeded(self):
+        try:
+            Game.objects.create(
+                creator_id=1,
+                title="My Non-Descript Game"
+            )
+        except :
+            self.fail('Game should be create-able without description')
 
 class GameCharacterModelTests(BaseTests.BaseModelTests):
     @classmethod
@@ -68,9 +78,7 @@ class GameCharacterModelTests(BaseTests.BaseModelTests):
         super(GameCharacterModelTests, cls).setUpClass()
         GameCharacter.objects.create(
             character_id=1,
-            game_id=1,
-            stat_type='CHARISMA',
-            stat_value='12')
+            game_id=1)
 
     @classmethod
     def tearDownClass(cls):
@@ -81,6 +89,4 @@ class GameCharacterModelTests(BaseTests.BaseModelTests):
         with self.assertRaises(IntegrityError):
             GameCharacter.objects.create(
                 character_id=1,
-                game_id=1,
-                stat_type='CHARISMA',
-                stat_value='15')
+                game_id=1)
