@@ -1,0 +1,31 @@
+{
+  "name": "rpgs",
+  "version": "1.0.0",
+  "description": "Store and display editable character sheets and campaign history for pen and paper rpg.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarahFowler73/rpg_campaigns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SarahFowler73/rpg_campaigns/issues"
+  },
+  "homepage": "https://github.com/SarahFowler73/rpg_campaigns#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "webpack": "^1.13.1"
+  }
+}
