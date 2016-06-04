@@ -36,8 +36,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
             ],
         ),
-        migrations.RemoveField(
-            model_name='gamecharacter',
-            name='is_pc',
-        ),
+        # migrations.RemoveField(
+        #     model_name='gamecharacter',
+        #     name='is_pc',
+        # ),
     ]

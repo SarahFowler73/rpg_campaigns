@@ -81,19 +81,19 @@ class Migration(migrations.Migration):
             name='stat_value',
             field=models.TextField(default=''),
         ),
-        migrations.AlterField(
-            model_name='gamecharacter',
-            name='game',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='campaigns.Game'),
-        ),
+        # migrations.AlterField(
+        #     model_name='gamecharacter',
+        #     name='game',
+        #     field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='campaigns.Game'),
+        # ),
         migrations.AlterUniqueTogether(
             name='gameasset',
             unique_together=set([('game', 'stat_type', 'stat_value')]),
         ),
-        migrations.AlterUniqueTogether(
-            name='gamecharacter',
-            unique_together=set([('game', 'character', 'stat_type', 'stat_value')]),
-        ),
+        # migrations.AlterUniqueTogether(
+        #     name='gamecharacter',
+        #     unique_together=set([('game', 'character', 'stat_type', 'stat_value')]),
+        # ),
         migrations.AlterUniqueTogether(
             name='gamelocation',
             unique_together=set([('game', 'stat_type', 'stat_value')]),

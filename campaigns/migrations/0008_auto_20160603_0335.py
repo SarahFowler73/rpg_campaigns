@@ -44,18 +44,18 @@ class Migration(migrations.Migration):
             model_name='gamenpc',
             name='game',
         ),
-        migrations.RemoveField(
-            model_name='gamecharacter',
-            name='stat_name',
-        ),
-        migrations.RemoveField(
-            model_name='gamecharacter',
-            name='stat_value',
-        ),
-        migrations.RemoveField(
-            model_name='gamecharacter',
-            name='val_type',
-        ),
+        # migrations.RemoveField(
+        #     model_name='gamecharacter',
+        #     name='stat_name',
+        # ),
+        # migrations.RemoveField(
+        #     model_name='gamecharacter',
+        #     name='stat_value',
+        # ),
+        # migrations.RemoveField(
+        #     model_name='gamecharacter',
+        #     name='val_type',
+        # ),
         migrations.AddField(
             model_name='character',
             name='description',

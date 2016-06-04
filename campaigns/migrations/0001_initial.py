@@ -38,16 +38,16 @@ class Migration(migrations.Migration):
                 'ordering': ['last_active_date', 'creation_date'],
             },
         ),
-        migrations.CreateModel(
-            name='GameCharacter',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('stat_type', models.CharField(max_length=255)),
-                ('stat_value', models.TextField(default='')),
-                ('character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='games', to='campaigns.Character')),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='characters', to='campaigns.Game')),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='GameCharacter',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('stat_type', models.CharField(max_length=255)),
+        #         ('stat_value', models.TextField(default='')),
+        #         ('character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='games', to='campaigns.Character')),
+        #         ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='characters', to='campaigns.Game')),
+        #     ],
+        # ),
         migrations.CreateModel(
             name='GameSession',
             fields=[
@@ -92,10 +92,10 @@ class Migration(migrations.Migration):
             name='usergame',
             unique_together=set([('user', 'game')]),
         ),
-        migrations.AlterUniqueTogether(
-            name='gamecharacter',
-            unique_together=set([('game', 'character', 'stat_type')]),
-        ),
+        # migrations.AlterUniqueTogether(
+        #     name='gamecharacter',
+        #     unique_together=set([('game', 'character', 'stat_type')]),
+        # ),
         migrations.AlterUniqueTogether(
             name='game',
             unique_together=set([('title', 'creator')]),

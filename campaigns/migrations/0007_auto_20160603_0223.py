@@ -17,11 +17,11 @@ class Migration(migrations.Migration):
             old_name='stat_type',
             new_name='stat_name',
         ),
-        migrations.RenameField(
-            model_name='gamecharacter',
-            old_name='stat_type',
-            new_name='stat_name',
-        ),
+        # migrations.RenameField(
+        #     model_name='gamecharacter',
+        #     old_name='stat_type',
+        #     new_name='stat_name',
+        # ),
         migrations.RenameField(
             model_name='gamelocation',
             old_name='stat_type',
@@ -43,12 +43,12 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('NUM', 'NUMERIC'), ('TXT', 'TEXT')], default='TXT', max_length=4),
             preserve_default=False,
         ),
-        migrations.AddField(
-            model_name='gamecharacter',
-            name='val_type',
-            field=models.CharField(choices=[('NUM', 'NUMERIC'), ('TXT', 'TEXT')], default='TXT', max_length=4),
-            preserve_default=False,
-        ),
+        # migrations.AddField(
+        #     model_name='gamecharacter',
+        #     name='val_type',
+        #     field=models.CharField(choices=[('NUM', 'NUMERIC'), ('TXT', 'TEXT')], default='TXT', max_length=4),
+        #     preserve_default=False,
+        # ),
         migrations.AddField(
             model_name='gamelocation',
             name='val_type',
@@ -71,10 +71,10 @@ class Migration(migrations.Migration):
             name='gameasset',
             unique_together=set([('game', 'stat_name', 'stat_value')]),
         ),
-        migrations.AlterUniqueTogether(
-            name='gamecharacter',
-            unique_together=set([('game', 'character', 'stat_name', 'stat_value')]),
-        ),
+        # migrations.AlterUniqueTogether(
+        #     name='gamecharacter',
+        #     unique_together=set([('game', 'character', 'stat_name', 'stat_value')]),
+        # ),
         migrations.AlterUniqueTogether(
             name='gamelocation',
             unique_together=set([('game', 'stat_name', 'stat_value')]),
