@@ -16,8 +16,9 @@ class GameCharacterView(viewsets.ModelViewSet):
     serializer_class = serializers.GameCharacterSerializer
     def get_queryset(self) :
         return models.GameCharacter.objects.filter(
-            Q(game__creator_id=self.request.user.id) |
-            Q(game__characters__character__user_id=self.request.user.id)
+            game__users__user_id=self.request.user.id
+            # Q(game__creator_id=self.request.user.id) |
+            # Q(game__characters__character__user_id=self.request.user.id)
         )
 
 
@@ -36,8 +37,9 @@ class GameListView(generics.ListAPIView):
     serializer_class = serializers.GameSerializer
     def get_queryset(self):
         return models.Game.objects.filter(
-            Q(characters__character__user_id=self.request.user.id) |
-            Q(creator_id=self.request.user.id)
+            users__user_id=self.request.user.id
+            # Q(users__user_id=self.request.user.id) |
+            # Q(creator_id=self.request.user.id)
         ).prefetch_related()
 
 

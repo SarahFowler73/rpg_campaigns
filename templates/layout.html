@@ -61,14 +61,14 @@
                 <nav class="sidebar silver">
                     <ul class="padded">
                         <li><a href="{% url 'views.index' %}">Home</a></li>
-                        <li><a href="/">Your Games</a></li>
+                        <li><a href="{% url 'campaigns:game_list' %}">Your Games</a></li>
                         <li><a href="/">Your Characters</a></li>
                         <li><a href='/'>Your Friends</a></li>
                     </ul>
                 </nav>
 
                 <div class="container padded center">
-                    <div class="half centerall">
+                    <div id='app' class="half centerall">
                         {% block content %}{% endblock %}
                     </div>
                 </div>

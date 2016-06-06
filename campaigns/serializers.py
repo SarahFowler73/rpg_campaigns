@@ -43,16 +43,18 @@ class GameCharacterSerializer(serializers.ModelSerializer):
         fields = ('character', 'stats')
 
 
+class UserGameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserGame
+
+
 class GameSerializer(serializers.ModelSerializer):
     creator_name = serializers.SerializerMethodField()
     characters = GameCharacterSerializer(many=True)
-    players = serializers.SerializerMethodField()
+    users = UserGameSerializer(many=True)
 
     def get_creator_name(self, obj):
         return models.Game.objects.get(id=obj.id).creator.username
-
-    def get_players(self, obj):
-        return obj.get_players()
 
     class Meta:
         model = models.Game
@@ -63,7 +65,8 @@ class GameDetailSerializer(serializers.ModelSerializer):
     characters = GameCharacterSerializer(many=True)
     items = GameItemSerializer(many=True)
     sessions = GameSessionSerializer(many=True)
+    users = UserGameSerializer(many=True)
 
     class Meta:
         model = models.Game
-        fields = ('title', 'creator', 'description', 'characters', 'items', 'sessions')
+        fields = ('title', 'creator', 'description', 'characters', 'items', 'sessions', 'users')

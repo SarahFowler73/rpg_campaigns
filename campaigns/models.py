@@ -31,14 +31,6 @@ class Game(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     last_active_date = models.DateTimeField(null=True)
 
-    def get_players(self):
-        return (
-            GameCharacter.objects\
-                     .filter(game_id=self.id)\
-                     .prefetch_related()\
-                     .values_list('game__creator_id', 'character__user_id')
-        )
-
     class Meta:
         unique_together = (('title', 'creator'),)
         ordering = ['last_active_date', 'creation_date']
@@ -122,9 +114,9 @@ class UserGame(models.Model):
             ('REMOVED', 'REMOVED')
         )
     )
-    join_date = models.DateTimeField(null=True)
-    last_active_date = models.DateTimeField(null=True)
-    exp_date = models.DateTimeField(null=True)
+    join_date = models.DateTimeField(blank=True)
+    last_active_date = models.DateTimeField(blank=True)
+    exp_date = models.DateTimeField(blank=True)
 
     class Meta:
         unique_together = (('user', 'game'),)
