@@ -1,13 +1,13 @@
 import React from 'react';
 import  ReactDOM from 'react-dom';
 
-console.log("This is main.js")
+let R = React.DOM;
 
 // class App extends React.Component {
 var App = React.createClass ({
-    loadGamesFromServer: function() {
+    get: function() {
         $.ajax({
-            url: this.props.url,
+            url: this.props.getUrl,
             datatype: 'json',
             cache: false,
             success: function(data) {
@@ -16,46 +16,52 @@ var App = React.createClass ({
         })
     },
 
+    post: function(postData) {
+        $.ajax({
+            url: this.props.postUrl,
+            dataType: 'json',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.postUrl, status, err.toString());
+            }.bind(this)
+        });
+    },
+
+
     getInitialState: function() {
         return {data: []};
     },
 
     componentDidMount: function() {
-        this.loadGamesFromServer();
-        // setInterval(this.loadGamesFromServer,
-        //             this.props.pollInterval)
+        this.get();
     },
     render: function() {
         if (this.state.data) {
             console.log('DATA!', this.state.data)
             var gameNodes = this.state.data.map(
                 (game) => {
-                    return <li key={game.id}>
-                        <ul>
-                            <li>{game.title}</li>
-                            <li>{game.creation_date}</li>
-                        </ul>
-                    </li>
+                    return R.ul({key: game.id},
+                        R.li(null, game.title),
+                        R.li(null, game.creation_date)
+                    )
                 }
             )
         }
         return (
-            <div>
-                <h1>Hello React!</h1>
-                <ul>
-                    {gameNodes}
-                </ul>
-            </div>
+            R.div(null,
+                R.h1(null, 'Hello React without JSX!'),
+                R.div(null, gameNodes)
+            )
         )
     }
 })
 
-//   render () {
-//     return <p> Hello World!</p>;
-//   }
-// }
 
 ReactDOM.render(
-    <App url='/api/v1/campaigns/game/'/>,
+    React.createElement(App, {getUrl: '/api/v1/campaigns/game/'}),
     document.getElementById('app')
 );

@@ -10,13 +10,6 @@ class Character(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=True)
 
-    # def get_games(self):
-    #     return (
-    #         Game.select(Game, GameCharacter)
-    #             .join(GameCharacter)
-    #             .where(GameCharacter.character == self)
-    #     )
-
     class Meta:
         unique_together = (('character', 'user'),)
 
@@ -45,7 +38,7 @@ class Game(models.Model):
                      .prefetch_related()\
                      .values_list('game__creator_id', 'character__user_id')
         )
-        
+
     class Meta:
         unique_together = (('title', 'creator'),)
         ordering = ['last_active_date', 'creation_date']
