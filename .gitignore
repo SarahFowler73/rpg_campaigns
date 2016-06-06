@@ -9,3 +9,5 @@ main.bundle.js.map
 _test_thing.py
 main2.js
 example.js
+webpack-stats.json
+
