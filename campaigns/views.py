@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics
+from rest_framework.decorators import detail_route, list_route
 
 
 from . import models, serializers
@@ -15,19 +16,27 @@ class GameCharacterView(viewsets.ModelViewSet):
     serializer_class = serializers.GameCharacterSerializer
     def get_queryset(self) :
         return models.GameCharacter.objects.filter(
-            character__user_id=self.request.user.id
+            Q(game__creator_id=self.request.user.id) |
+            Q(game__characters__character__user_id=self.request.user.id)
         )
 
 
 class GameSessionView(viewsets.ModelViewSet):
-    pass
+    serializer_class = serializers.GameSessionSerializer
+    queryset = []
+
+    @list_route
+    def sessions(self, request):
+        return models.GameSession.objects.filter(
+            game_id=self.kwargs['game_id']
+        ).ordering('session_date', 'last_updated')
 
 
 class GameListView(generics.ListAPIView):
     serializer_class = serializers.GameSerializer
     def get_queryset(self):
         return models.Game.objects.filter(
-            Q(gamecharacter__character__user_id=self.request.user.id) |
+            Q(characters__character__user_id=self.request.user.id) |
             Q(creator_id=self.request.user.id)
         ).prefetch_related()
 

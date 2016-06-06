@@ -2,32 +2,15 @@ from rest_framework import serializers
 
 from . import models
 
-
-class CharacterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Character
-        fields = ('character', 'user', 'creation_date')
-
-
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Game
-        fields = '__all__'
+class RecursiveField(serializers.Serializer):
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
 
 
 class CharacterStatSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterStat
-
-
-class GameCharacterSerializer(serializers.ModelSerializer):
-    game = GameSerializer
-    character = CharacterSerializer
-    stats = CharacterStatSerializer(many=True)
-
-    class Meta:
-        model = models.GameCharacter
-        fields = '__all__'
 
 
 class ItemStatSerializer(serializers.ModelSerializer):
@@ -44,6 +27,36 @@ class GameItemSerializer(serializers.ModelSerializer):
 class GameSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.GameSession
+
+
+class CharacterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Character
+        fields = ('character', 'user', 'creation_date')
+
+
+class GameCharacterSerializer(serializers.ModelSerializer):
+    character = CharacterSerializer()
+    stats = CharacterStatSerializer(many=True)
+    class Meta:
+        model = models.GameCharacter
+        fields = ('character', 'stats')
+
+
+class GameSerializer(serializers.ModelSerializer):
+    creator_name = serializers.SerializerMethodField()
+    characters = GameCharacterSerializer(many=True)
+    players = serializers.SerializerMethodField()
+
+    def get_creator_name(self, obj):
+        return models.Game.objects.get(id=obj.id).creator.username
+
+    def get_players(self, obj):
+        return obj.get_players()
+
+    class Meta:
+        model = models.Game
+        fields = '__all__'
 
 
 class GameDetailSerializer(serializers.ModelSerializer):

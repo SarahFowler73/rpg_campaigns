@@ -21,6 +21,16 @@ class Character(models.Model):
         unique_together = (('character', 'user'),)
 
 
+class GameCharacter(models.Model):
+    character = models.ForeignKey(
+        Character,
+        related_name='games')
+    game = models.ForeignKey('Game', related_name="characters")
+
+    class Meta:
+        unique_together = (('game', 'character'),)
+
+
 class Game(models.Model):
     title = models.CharField(max_length=100, null=False)
     description = models.TextField(blank=True)
@@ -28,31 +38,17 @@ class Game(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     last_active_date = models.DateTimeField(null=True)
 
-    # def get_characters(self):
-    #     return GameCharacter.select().where(GameCharacter.game == self)
-    #
-    # def get_players(self):
-    #     return (
-    #         self.get_characters()
-    #             .select(User.username, GameCharacter)
-    #             .join(Character)
-    #             .join(User)
-    #             .group_by(Character.user)
-    #     )
-
+    def get_players(self):
+        return (
+            GameCharacter.objects\
+                     .filter(game_id=self.id)\
+                     .prefetch_related()\
+                     .values_list('game__creator_id', 'character__user_id')
+        )
+        
     class Meta:
         unique_together = (('title', 'creator'),)
         ordering = ['last_active_date', 'creation_date']
-
-
-class GameCharacter(models.Model):
-    character = models.ForeignKey(
-        Character,
-        related_name='games')
-    game = models.ForeignKey(Game, related_name="characters")
-
-    class Meta:
-        unique_together = (('game', 'character'),)
 
 
 class GameCharacterCharacter(models.Model):
