@@ -61,7 +61,6 @@
                 <nav class="sidebar silver">
                     <ul class="padded">
                         <li><a href="{% url 'views.index' %}">Home</a></li>
-                        <li><a href=" url 'create_game' ">Create New Game</a></li>
                         <li><a href="/">Your Games</a></li>
                         <li><a href="/">Your Characters</a></li>
                         <li><a href='/'>Your Friends</a></li>
@@ -69,7 +68,7 @@
                 </nav>
 
                 <div class="container padded center">
-                    <div id="app" class="half centerall">
+                    <div class="half centerall">
                         {% block content %}{% endblock %}
                     </div>
                 </div>
@@ -81,7 +80,7 @@
                 <br>by <a href="http://github.com/SarahFowler73">Sarah Fowler</a>
             </p>
         </footer>
-        <script src="static/build/main.bundle.js"></script>
+        
         <script src="https://use.fontawesome.com/81abc2c449.js"></script>
     </body>
 </html>
