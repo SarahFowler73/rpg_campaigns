@@ -25,7 +25,7 @@
                   <div class="fill middle centerall">
                     <ul class="menu">
                     <li class="third">
-                      <a href="{% url 'views.index' %}">Home</a>
+                      <a href="{% url 'index' %}">Home</a>
                     </li>
 
                     <li class="third">
@@ -60,10 +60,10 @@
 
                 <nav class="sidebar silver">
                     <ul class="padded">
-                        <li><a href="{% url 'views.index' %}">Home</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="{% url 'campaigns:game_list' %}">Your Games</a></li>
                         <li><a href="{% url 'campaigns:character-list' %}">Your Characters</a></li>
-                        <li><a href="{% url 'campaigns:friends-list' %}">Your Friends</a></li>
+                        <li><a href="{% url 'friends:friend-list' %}">Your Friends</a></li>
                     </ul>
                 </nav>
 

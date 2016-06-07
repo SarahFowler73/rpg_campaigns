@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'webpack_loader',
     'campaigns',
+    'friends',
 ]
 
 MIDDLEWARE_CLASSES = [

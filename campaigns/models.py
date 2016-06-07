@@ -114,9 +114,9 @@ class UserGame(models.Model):
             ('REMOVED', 'REMOVED')
         )
     )
-    join_date = models.DateTimeField(blank=True)
-    last_active_date = models.DateTimeField(blank=True)
-    exp_date = models.DateTimeField(blank=True)
+    join_date = models.DateTimeField(blank=True, null=True)
+    last_active_date = models.DateTimeField(blank=True, null=True)
+    exp_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         unique_together = (('user', 'game'),)

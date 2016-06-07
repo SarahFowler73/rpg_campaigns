@@ -54,12 +54,3 @@ def logout(request):
     messages.add_message(request, messages.SUCCESS,
         "You've been logged out. Come back soon! :'( ")
     return HttpResponseRedirect(reverse('index'))
-
-
-class UserUserView(viewsets.ModelViewSet):
-    serializer_class = serializers.UserUserSerializer
-    def get_queryset(self):
-        return models.UserUser.objects.filter(
-            Q(to_user_id=self.request.user.id) |
-            Q(from_user_id=self.request.user.id)
-        )

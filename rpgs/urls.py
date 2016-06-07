@@ -16,15 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from rest_framework.routers import DefaultRouter
 
 from . import views
 
-router = DefaultRouter()
-router.register(r'api/v1/friends', views.UserUserView, base_name='friends')
 
 urlpatterns = [
     url(r'^api/v1/campaigns/', include('campaigns.urls', namespace='campaigns')),
+    url(r'^api/v1/friends/', include('friends.urls', namespace='friends')),
 
     url(r'^register/', views.register, name='register'),
     url(r'^login/', views.login, name='login'),
