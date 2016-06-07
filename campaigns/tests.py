@@ -89,24 +89,69 @@ class GameModelTests(BaseTests.BaseModelTests):
 
 
 class GameCharacterModelTests(BaseTests.BaseModelTests):
-    @classmethod
-    def setUpClass(cls):
-        super(GameCharacterModelTests, cls).setUpClass()
-        GameCharacter.objects.create(
-            character_id=1,
-            game_id=12)
 
-    @classmethod
-    def tearDownClass(cls):
-        super(GameCharacterModelTests, cls).tearDownClass()
-        GameCharacter.objects.all().delete()
-
-    def test_game_character_stat_unique(self):
+    def test_game_character_unique(self):
         with self.assertRaises(IntegrityError):
             GameCharacter.objects.create(
-                character_id=1,
+                character_id=4,
                 game_id=12)
 
 
-# class UserGameModelTests(BaseTests.BaseModelTests):
-#     pass
+class UserGameModelTests(BaseTests.BaseModelTests):
+    def test_user_game_unique(self):
+        with self.assertRaises(IntegrityError):
+            UserGame.objects.create(
+                user_id=3,
+                game_id=12,
+                status="PENDING")
+
+
+class GameCharacterCharacterModelTests(BaseTests.BaseModelTests):
+    def test_to_from_bond_unique(self):
+        with self.assertRaises(IntegrityError):
+            GameCharacterCharacter.objects.create(
+                from_character_id=2,
+                to_character_id=1,
+                bond="Was saved from dying in the desert. Owes his life, and will protect her.")
+
+    def test_creation_date_set(self):
+        bond, c = GameCharacterCharacter.objects.get_or_create(
+            from_character_id=2,
+            to_character_id=1,
+            bond="New bond.")
+        now = timezone.now()
+        self.assertEqual(bond.creation_date, now.date())
+
+
+class GameItemModelTests(BaseTests.BaseModelTests):
+    def test_game_item_name_unique(self):
+        with self.assertRaises(IntegrityError):
+            GameItem.objects.create(
+                game_id=12,
+                name="Tyr",
+                description='City of Kalak',
+                item_type='LOC')
+
+
+class CharacterStatModelTests(BaseTests.BaseModelTests):
+    def test_char_name_val_unique(self):
+        with self.assertRaises(IntegrityError):
+            CharacterStat.objects.create(
+                game_character_id=1,
+                stat_name='ASPECT',
+                stat_value='Ends justify the means',
+                val_type='TXT')
+
+
+class ItemStatModelTests(BaseTests.BaseModelTests):
+    def test_item_name_val_unique(self):
+        with self.assertRaises(IntegrityError):
+            ItemStat.objects.create(
+                item_id=1,
+                stat_name='MAP',
+                stat_value="./static/images/favicon.ico",
+                val_type='TXT')
+
+
+class GameSessionModelTests(BaseTests.BaseModelTests):
+    pass
