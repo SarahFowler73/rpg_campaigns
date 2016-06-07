@@ -88,8 +88,8 @@
     "game_character_characters": [
         {
             "id": 1,
-            "from_character": 2,
-            "to_character": 1,
+            "from_character_id": 2,
+            "to_character_id": 1,
             "bond": "Was saved from dying in the desert. Owes his life, and will protect her.",
             "creation_date": "2016-01-18T12:34:56.000000Z",
             "expiration_date": null
@@ -145,7 +145,7 @@
             "last_updated": "2016-01-18T12:34:56.000000Z"
         }
     ],
-    "user_game": [
+    "user_games": [
         {
             "id": 1,
             "user_id": 1,

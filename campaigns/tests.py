@@ -18,10 +18,14 @@ def get_json():
 
 def set_up_db():
     data = get_json()
-
-    map(lambda user: User.objects.create(**user), data['users'])
-    map(lambda game: Game.objects.create(**game), data['games'])
-    map(lambda character: Character.objects.create(**character), data['characters'])
+    for model, key in [
+        (User, 'users'), (Game, 'games'), (Character, 'characters'),
+        (UserGame, 'user_games'), (GameCharacter, 'game_characters'),
+        (GameCharacterCharacter, 'game_character_characters'),
+        (GameItem, 'game_items'), (ItemStat, 'item_stats'),
+        (CharacterStat, 'character_stats')
+    ]:
+        map(lambda item: model.objects.create(**item), data[key])
 
 
 class BaseTests:
@@ -34,9 +38,12 @@ class BaseTests:
         @classmethod
         def tearDownClass(cls):
             super(BaseTests.BaseModelTests, cls).tearDownClass()
-            User.objects.all().delete()
-            Game.objects.all().delete()
-            Character.objects.all().delete()
+            for model in [
+                ItemStat, CharacterStat, GameItem, GameCharacterCharacter,
+                GameCharacter, Character, UserGame, Game, User
+            ]:
+                model.objects.all().delete()
+
 
 
 class CharacterModelTests(BaseTests.BaseModelTests):
