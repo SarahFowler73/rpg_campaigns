@@ -66,12 +66,3 @@ class UserGameView(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-
-class UserUserView(viewsets.ModelViewSet):
-    serializer_class = serializers.UserUserSerializer
-    def get_queryset(self):
-        return models.UserUser.objects.filter(
-            Q(to_user_id=self.request.user.id) |
-            Q(from_user_id=self.request.user.id)
-        )

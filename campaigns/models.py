@@ -120,11 +120,3 @@ class UserGame(models.Model):
 
     class Meta:
         unique_together = (('user', 'game'),)
-
-
-class UserUser(models.Model):
-    from_user = models.ForeignKey(User, related_name="relationships")
-    to_user = models.ForeignKey(User, related_name='related_to')
-
-    class Meta:
-        unique_together = (('from_user', 'to_user'),)

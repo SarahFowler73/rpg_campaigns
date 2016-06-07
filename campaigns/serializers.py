@@ -78,8 +78,3 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'sessions',
             'users'
         )
-
-
-class UserUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.UserUser

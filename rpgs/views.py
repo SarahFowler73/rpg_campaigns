@@ -5,8 +5,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
+from rest_framework import viewsets
 
+from . import models
 from . import forms
+
 
 def index(request):
     return render(request, 'index.html')
@@ -41,7 +44,7 @@ def register(request):
             )
             messages.add_message(request, messages.SUCCESS,
                 "Registration complete!")
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('login'))
     return render(request, 'register.html', {'form': form})
 
 
@@ -51,3 +54,12 @@ def logout(request):
     messages.add_message(request, messages.SUCCESS,
         "You've been logged out. Come back soon! :'( ")
     return HttpResponseRedirect(reverse('index'))
+
+
+class UserUserView(viewsets.ModelViewSet):
+    serializer_class = serializers.UserUserSerializer
+    def get_queryset(self):
+        return models.UserUser.objects.filter(
+            Q(to_user_id=self.request.user.id) |
+            Q(from_user_id=self.request.user.id)
+        )
