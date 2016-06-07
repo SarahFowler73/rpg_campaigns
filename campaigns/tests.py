@@ -1,10 +1,27 @@
+import json
+
 from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.core.urlresolvers import reverse
 
-from .models import Character, Game, GameCharacter
+from .models import (Game, Character, GameCharacter, GameCharacterCharacter,
+                     GameItem, CharacterStat, ItemStat, GameSession, UserGame)
+
+
+def get_json():
+    with open('campaigns/mock_data.json') as data_file:
+        data = json.load(data_file)
+    return data
+
+
+def set_up_db():
+    data = get_json()
+
+    map(lambda user: User.objects.create(**user), data['users'])
+    map(lambda game: Game.objects.create(**game), data['games'])
+    map(lambda character: Character.objects.create(**character), data['characters'])
 
 
 class BaseTests:
@@ -12,16 +29,7 @@ class BaseTests:
         @classmethod
         def setUpClass(cls):
             super(BaseTests.BaseModelTests, cls).setUpClass()
-            User.objects.create(
-                id=1, username='sarah', email='sarah@stuff.com')
-            Game.objects.create(
-                id=1,
-                creator_id=1,
-                title='My Cool Game')
-            Character.objects.create(
-                id=1,
-                user_id=1,
-                character='Billy the Kid')
+            set_up_db()
 
         @classmethod
         def tearDownClass(cls):
@@ -36,7 +44,7 @@ class CharacterModelTests(BaseTests.BaseModelTests):
         with self.assertRaises(IntegrityError):
             Character.objects.create(
                 user_id=1,
-                character='Billy the Kid')
+                character='Tyr Ma')
 
     def test_created_date_set(self):
         character, c = Character.objects.get_or_create(
@@ -51,8 +59,8 @@ class GameModelTests(BaseTests.BaseModelTests):
     def test_game_creator_unique(self):
         with self.assertRaises(IntegrityError):
             Game.objects.create(
-                creator_id=1,
-                title='My Cool Game',
+                creator_id=3,
+                title='Dark Sun',
                 description='I described it!')
 
     def test_created_date_set(self):
@@ -72,13 +80,14 @@ class GameModelTests(BaseTests.BaseModelTests):
         except :
             self.fail('Game should be create-able without description')
 
+
 class GameCharacterModelTests(BaseTests.BaseModelTests):
     @classmethod
     def setUpClass(cls):
         super(GameCharacterModelTests, cls).setUpClass()
         GameCharacter.objects.create(
             character_id=1,
-            game_id=1)
+            game_id=12)
 
     @classmethod
     def tearDownClass(cls):
@@ -89,4 +98,8 @@ class GameCharacterModelTests(BaseTests.BaseModelTests):
         with self.assertRaises(IntegrityError):
             GameCharacter.objects.create(
                 character_id=1,
-                game_id=1)
+                game_id=12)
+
+
+# class UserGameModelTests(BaseTests.BaseModelTests):
+#     pass

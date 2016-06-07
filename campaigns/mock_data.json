@@ -1,4 +1,21 @@
 {
+    "users": [
+        {
+            "id": 1,
+            "username": "sarah",
+            "email": "sarah@stuff.com"
+        },
+        {
+            "id": 2,
+            "username": "eric",
+            "email": "eric@stuff.com"
+        },
+        {
+            "id": 3,
+            "username": "jeff",
+            "email": "jeff@stuff.com"
+        }
+    ],
     "characters": [
         {
             "id": 4,
@@ -10,10 +27,10 @@
         {
             "id": 3,
             "character": "Krug",
-            "user_id": 2,
+            "user_id": 3,
             "description": "7-foot tall former gladiator. Indebted to Tyr Ma.",
             "creation_date": "2016-01-29T12:34:56.000000Z"
-        },
+        }
     ],
     "games": [
         {
@@ -42,10 +59,10 @@
         {
             "id": 2,
             "game_id": 12,
-            "character_id": 3,
+            "character_id": 3
         }
     ],
-    "game_character_stats": [
+    "character_stats": [
         {
             "id": 1,
             "game_character_id": 1,
@@ -92,6 +109,13 @@
             "name": "Alderon",
             "description": "King of wherever",
             "item_type": "NPC"
+        },
+        {
+            "id": 3,
+            "game_id": 12,
+            "name": "Spear of Whatever",
+            "description": "Spear that was used to kill Kalak",
+            "item_type": "ITM"
         }
     ],
     "item_stats": [
@@ -101,12 +125,50 @@
             "stat_name": "HISTORY",
             "stat_value": "Previously ruled by Kalak who is now dead, killed by mortal gladiators with a spear.",
             "val_type": "TXT"
+        },
+        {
+            "id": 2,
+            "item_id": 1,
+            "stat_name": "MAP",
+            "stat_value": "./static/images/favicon.ico",
+            "val_type": "IMG"
+        }
+    ],
+    "game_sessions": [
+        {
+            "id": 1,
+            "game_id": 12,
+            "session_title": "First session",
+            "session_text": "In the first session, we made characters.",
+            "session_date": "2016-01-18T12:34:56.000000Z",
+            "entry_created": "2016-01-18T12:34:56.000000Z",
+            "last_updated": "2016-01-18T12:34:56.000000Z"
         }
     ],
     "user_game": [
         {
             "id": 1,
             "user_id": 1,
+            "game_id": 12,
+            "is_owner": false,
+            "status": "ACTIVE",
+            "join_date": "2016-01-18T12:34:56.000000Z",
+            "last_active_date": "2016-01-18T12:34:56.000000Z",
+            "exp_date": null
+        },
+        {
+            "id": 2,
+            "user_id": 2,
+            "game_id": 12,
+            "is_owner": false,
+            "status": "PENDING",
+            "join_date": null,
+            "last_active_date": null,
+            "exp_date": null
+        },
+        {
+            "id": 3,
+            "user_id": 3,
             "game_id": 12,
             "is_owner": false,
             "status": "ACTIVE",
