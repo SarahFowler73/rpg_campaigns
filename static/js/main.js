@@ -54,7 +54,7 @@ var App = React.createClass ({
         return (
             R.div(null,
                 R.h1(null, 'Hello React without JSX!'),
-                R.div(null, gameNodes)
+                gameNodes
             )
         )
     }

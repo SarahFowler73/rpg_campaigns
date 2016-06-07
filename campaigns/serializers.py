@@ -69,4 +69,17 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Game
-        fields = ('title', 'creator', 'description', 'characters', 'items', 'sessions', 'users')
+        fields = (
+            'title',
+            'creator',
+            'description',
+            'characters',
+            'items',
+            'sessions',
+            'users'
+        )
+
+
+class UserUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserUser

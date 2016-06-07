@@ -35,11 +35,11 @@
                     <li class="third">
                         <!-- Log in/Log out -->
                         {% if user.is_authenticated %}
-                            <a href="{% url 'views.logout' %}" class="">Log Out</a>
+                            <a href="{% url 'logout' %}" class="">Log Out</a>
                         {% else %}
                             <span>
-                                <a href="{% url 'views.login' %}" class="">Log In</a>|
-                                <a href="{% url 'views.register' %}" class="">Sign Up</a>
+                                <a href="{% url 'login' %}" class="">Log In</a>|
+                                <a href="{% url 'register' %}" class="">Sign Up</a>
                             </span>
                         {% endif %}
                     </li>
@@ -62,8 +62,8 @@
                     <ul class="padded">
                         <li><a href="{% url 'views.index' %}">Home</a></li>
                         <li><a href="{% url 'campaigns:game_list' %}">Your Games</a></li>
-                        <li><a href="/">Your Characters</a></li>
-                        <li><a href='/'>Your Friends</a></li>
+                        <li><a href="{% url 'campaigns:character-list' %}">Your Characters</a></li>
+                        <li><a href="{% url 'campaigns:friends-list' %}">Your Friends</a></li>
                     </ul>
                 </nav>
 
@@ -80,7 +80,7 @@
                 <br>by <a href="http://github.com/SarahFowler73">Sarah Fowler</a>
             </p>
         </footer>
-        
+
         <script src="https://use.fontawesome.com/81abc2c449.js"></script>
     </body>
 </html>
