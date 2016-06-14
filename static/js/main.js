@@ -1,67 +1,37 @@
-import React from 'react';
-import  ReactDOM from 'react-dom';
+import React from 'react'
+import  { render } from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
-let R = React.DOM;
+import { gameListReducer } from './reducers'
+import { gameForm, gameList} from './components'
 
-// class App extends React.Component {
-var App = React.createClass ({
-    get: function() {
-        $.ajax({
-            url: this.props.getUrl,
-            datatype: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data.results});
-            }.bind(this)
-        })
-    },
+let store = createStore(gameListReducer)
 
-    post: function(postData) {
-        $.ajax({
-            url: this.props.postUrl,
-            dataType: 'json',
-            type: 'POST',
-            data: postData,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.postUrl, status, err.toString());
-            }.bind(this)
-        });
-    },
+const newGameOnclick = store.dispatch({
+    type: 'ADD_GAME',
+    title: 'TEST',
+    description: 'TEST DESC'
+});
 
-
-    getInitialState: function() {
-        return {data: []};
-    },
-
-    componentDidMount: function() {
-        this.get();
-    },
-    render: function() {
-        if (this.state.data) {
-            console.log('DATA!', this.state.data)
-            var gameNodes = this.state.data.map(
-                (game) => {
-                    return R.ul({key: game.id},
-                        R.li(null, game.title),
-                        R.li(null, game.creation_date)
-                    )
-                }
-            )
-        }
-        return (
-            R.div(null,
-                R.h1(null, 'Hello React without JSX!'),
-                gameNodes
-            )
-        )
+class GameListApp extends React.Component {
+    render(){
+        return(
+        <div>
+            <gameForm onclick={newGameOnclick}/>
+            <gameList props={store.getState().games}/>
+            <p>Something is here!</p>
+        </div>)
     }
-})
 
+}
 
-ReactDOM.render(
-    React.createElement(App, {getUrl: '/api/v1/campaigns/game/'}),
+render(
+    <Provider store={store}>
+        <GameListApp />
+    </Provider>,
     document.getElementById('app')
 );
+
+
+store.subscribe(render);
