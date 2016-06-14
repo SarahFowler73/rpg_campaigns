@@ -29,7 +29,8 @@ class Game(models.Model):
     description = models.TextField(blank=True)
     creator = models.ForeignKey(User, related_name='created_games')
     creation_date = models.DateTimeField(auto_now=True)
-    last_active_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
+    last_active_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         unique_together = (('title', 'creator'),)
