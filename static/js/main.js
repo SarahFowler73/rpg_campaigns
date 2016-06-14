@@ -4,22 +4,21 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 import { gameListReducer } from './reducers'
-import { gameForm, gameList} from './components'
+import { GameForm, GameList} from './components'
 
 let store = createStore(gameListReducer)
-
-const newGameOnclick = store.dispatch({
-    type: 'ADD_GAME',
-    title: 'TEST',
-    description: 'TEST DESC'
-});
+// onClick=store.dispatch({
+//     type: 'ADD_GAME',
+//     title: 'TEST',
+//     description: 'TEST DESC'
+// })}
 
 class GameListApp extends React.Component {
     render(){
         return(
         <div>
-            <gameForm onclick={newGameOnclick}/>
-            <gameList props={store.getState().games}/>
+            <GameForm />
+            <GameList games={[]}/>
             <p>Something is here!</p>
         </div>)
     }
@@ -32,6 +31,3 @@ render(
     </Provider>,
     document.getElementById('app')
 );
-
-
-store.subscribe(render);
