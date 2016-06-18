@@ -42,10 +42,10 @@ let store = createStore(gameListReducer)
 // }
 const GameListApp = () => (
     <div>
-        <GameForm onsubmit={() => store.dispatch({
+        <GameForm onSubmit={gameObj => store.dispatch({
             type: 'NEW_GAME',
-            title: 'TEST',
-            description: 'TEST DESC'
+            title: gameObj.title.value,
+            description: gameObj.description.value
         })}/>
         <GameList games={store.getState().games}/>
     </div>
