@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export const GameForm = () => (
-    <form id='game-form' action='/'>
-            <label>Title:
-                <input type='text' name='game-title'/>
-            </label>
-            <label>Description:
-                <textbox name='game-description'/>
-            </label>
-            <button >Save Changes</button>
-        </form>
+export const GameForm = ({ onsubmit }) => (
+    <div id='game-form'>
+        <label>Title:
+            <input type='text' name='game-title'/>
+        </label>
+        <label>Description:
+            <textarea name='game-description'/>
+        </label>
+        <button className="thing" onClick={onsubmit}>Save Changes</button>
+    </div>
 )
 
-export const GameList = (props) => (
+GameForm.propTypes = {
+  onsubmit: PropTypes.func.isRequired
+}
+
+export const GameList = ({ games }) => (
     <ul className="games">
-        {props.games.map(game =>
+        {games.map(game =>
             <li key={game.id}>
                 <h4>{game.title}</h4>
                 <p>{game.description}</p>
@@ -23,3 +27,7 @@ export const GameList = (props) => (
         )}
     </ul>
 )
+
+GameList.propTypes = {
+  games: PropTypes.array.isRequired
+}

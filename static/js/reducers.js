@@ -12,12 +12,13 @@ function visibilityFilter(state = SHOW_ALL, action) {
 }
 
 function games(state = [], action) {
+    console.log(state, action);
   switch (action.type) {
     case 'NEW_GAME':
       return [
         ...state,
         {
-          title: action.text,
+          title: action.title,
           description: action.description
         }
       ]
@@ -25,7 +26,7 @@ function games(state = [], action) {
       return state.map((game, index) => {
         if (index === action.index) {
           return Object.assign({}, game, {
-              title: action.text,
+              title: action.title,
               description: action.description
           })
         }
