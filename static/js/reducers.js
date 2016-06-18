@@ -11,13 +11,14 @@ function visibilityFilter(state = SHOW_ALL, action) {
   }
 }
 
-function games(state = [], action) {
+function games(state = [{title: 'hey', description: ''}], action) {
     console.log(state, action);
   switch (action.type) {
     case 'NEW_GAME':
       return [
         ...state,
         {
+          id: state.length + 1,
           title: action.title,
           description: action.description
         }

@@ -1,5 +1,5 @@
 import React from 'react'
-import  { render } from 'react-dom'
+import  ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
 
@@ -27,19 +27,30 @@ let store = createStore(gameListReducer)
 //   }
 // }
 //todo: this isn't how you should dispatch shit
-class GameListApp extends React.Component {
-    render(){
-        return(
-        <div>
-            <GameForm onsubmit={() => store.dispatch({
-                type: 'NEW_GAME',
-                title: 'TEST',
-                description: 'TEST DESC'
-            })}/>
-            <GameList games={store.getState().games}/>
-        </div>)
-    }
-}
+// class GameListApp extends React.Component {
+//     render(){
+//         return(
+//         <div>
+//             <GameForm onsubmit={() => store.dispatch({
+//                 type: 'NEW_GAME',
+//                 title: 'TEST',
+//                 description: 'TEST DESC'
+//             })}/>
+//             <GameList games={store.getState().games}/>
+//         </div>)
+//     }
+// }
+const GameListApp = () => (
+    <div>
+        <GameForm onsubmit={() => store.dispatch({
+            type: 'NEW_GAME',
+            title: 'TEST',
+            description: 'TEST DESC'
+        })}/>
+        <GameList games={store.getState().games}/>
+    </div>
+)
+
 
 
 
@@ -49,9 +60,17 @@ class GameListApp extends React.Component {
 // )(GameListApp)
 
 
-render(
-    <Provider store={store}>
-        <GameListApp />
-    </Provider>,
-    document.getElementById('app')
-);
+const render = () => (
+    ReactDOM.render(
+        <GameListApp />,
+        document.getElementById('app')
+    )
+)
+// render(
+//     <Provider store={store}>
+//         <GameListApp />
+//     </Provider>,
+//     document.getElementById('app')
+// )
+render()
+store.subscribe(render)
