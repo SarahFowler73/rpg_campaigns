@@ -1,6 +1,6 @@
 [
     {
-        "model": "users",
+        "model": "auth.user",
         "pk": 1,
         "fields": {
             "username": "sarah",
@@ -8,7 +8,7 @@
         }
     },
     {
-        "model": "users",
+        "model": "auth.user",
         "pk": 2,
         "fields": {
             "username": "eric",
@@ -16,7 +16,7 @@
         }
     },
     {
-        "model": "users",
+        "model": "auth.user",
         "pk": 3,
         "fields": {
             "username": "jeff",
@@ -24,7 +24,7 @@
         }
     },
     {
-        "model": "characters",
+        "model": "campaigns.characters",
         "pk": 4,
         "fields": {
             "character": "Tyr Ma",
@@ -34,7 +34,7 @@
         }
     },
     {
-        "model": "characters",
+        "model": "campaigns.characters",
         "pk": 3,
         "fields": {
             "character": "Krug",
@@ -44,7 +44,7 @@
         }
     },
     {
-        "model": "games",
+        "model": "campaigns.games",
         "pk": 12,
         "fields": {
             "title": "Dark Sun",
@@ -52,8 +52,10 @@
             "creator_id": 3,
             "creation_date": "2016-01-18T12:34:56.000000Z",
             "last_active_date": "2016-04-29T12:34:56.000000Z"
-        },
-        "model": "games",
+        }
+    },
+    {
+        "model": "campaigns.games",
         "pk": 4,
         "fields": {
             "title": "Microscope",
@@ -64,15 +66,15 @@
         }
     },
     {
-        "model": "game_characters",
+        "model": "campaigns.game_characters",
         "pk": 1,
         "fields": {
             "game_id": 12,
             "character_id": 4
-        },
+        }
     },
     {
-        "model": "game_characters",
+        "model": "campaigns.game_characters",
         "pk": 2,
         "fields": {
             "game_id": 12,
@@ -80,7 +82,7 @@
         }
     },
     {
-        "model": "character_stats",
+        "model": "campaigns.character_stats",
         "pk": 1,
         "fields": {
             "game_character_id": 1,
@@ -90,7 +92,7 @@
         }
     },
     {
-        "model": "character_stats",
+        "model": "campaigns.character_stats",
         "pk": 2,
         "fields": {
             "game_character_id": 1,
@@ -100,7 +102,7 @@
         }
     },
     {
-        "model": "character_stats",
+        "model": "campaigns.character_stats",
         "pk": 3,
         "fields": {
             "game_character_id": 2,
@@ -110,7 +112,7 @@
         }
     },
     {
-        "model": "game_character_characters",
+        "model": "campaigns.game_character_characters",
         "pk": 1,
         "fields": {
             "from_character_id": 2,
@@ -121,7 +123,7 @@
         }
     },
     {
-        "model": "game_items",
+        "model": "campaigns.game_items",
         "pk": 1,
         "fields": {
             "game_id": 12,
@@ -131,7 +133,7 @@
         }
     },
     {
-        "model": "game_items",
+        "model": "campaigns.game_items",
         "pk": 2,
         "fields": {
             "game_id": 12,
@@ -141,7 +143,7 @@
         }
     },
     {
-        "model": "game_items",
+        "model": "campaigns.game_items",
         "pk": 3,
         "fields": {
             "game_id": 12,
@@ -151,7 +153,7 @@
         }
     },
     {
-        "model": "item_stats",
+        "model": "campaigns.item_stats",
         "pk": 1,
         "fields": {
             "item_id": 1,
@@ -161,7 +163,7 @@
         }
     },
     {
-        "model": "item_stats",
+        "model": "campaigns.item_stats",
         "pk": 2,
         "fields": {
             "item_id": 1,
@@ -171,7 +173,7 @@
         }
     },
     {
-        "model": "game_sessions",
+        "model": "campaigns.game_sessions",
         "pk": 1,
         "fields": {
             "game_id": 12,
@@ -183,7 +185,7 @@
         }
     },
     {
-        "model": "user_games",
+        "model": "campaigns.user_games",
         "pk": 1,
         "fields": {
             "user_id": 1,
@@ -193,10 +195,10 @@
             "join_date": "2016-01-18T12:34:56.000000Z",
             "last_active_date": "2016-01-18T12:34:56.000000Z",
             "exp_date": null
-        },
+        }
     },
     {
-        "model": "user_games",
+        "model": "campaigns.user_games",
         "pk": 2,
         "fields": {
             "user_id": 2,
@@ -206,10 +208,10 @@
             "join_date": null,
             "last_active_date": null,
             "exp_date": null
-        },
+        }
     },
     {
-        "model": "user_games",
+        "model": "campaigns.user_games",
         "pk": 3,
         "fields": {
             "user_id": 3,
