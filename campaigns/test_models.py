@@ -10,41 +10,9 @@ from .models import (Game, Character, GameCharacter, GameCharacterCharacter,
                      GameItem, CharacterStat, ItemStat, GameSession, UserGame)
 
 
-def get_json():
-    with open('campaigns/mock_data.json') as data_file:
-        data = json.load(data_file)
-    return data
-
-
-def set_up_db():
-    data = get_json()
-    for model, key in [
-        (User, 'users'), (Game, 'games'), (Character, 'characters'),
-        (UserGame, 'user_games'), (GameCharacter, 'game_characters'),
-        (GameCharacterCharacter, 'game_character_characters'),
-        (GameItem, 'game_items'), (ItemStat, 'item_stats'),
-        (CharacterStat, 'character_stats')
-    ]:
-        map(lambda item: model.objects.create(**item), data[key])
-
-
 class BaseTests:
     class BaseModelTests(TestCase):
-        @classmethod
-        def setUpClass(cls):
-            super(BaseTests.BaseModelTests, cls).setUpClass()
-            set_up_db()
-
-        @classmethod
-        def tearDownClass(cls):
-            super(BaseTests.BaseModelTests, cls).tearDownClass()
-            for model in [
-                ItemStat, CharacterStat, GameItem, GameCharacterCharacter,
-                GameCharacter, Character, UserGame, Game, User
-            ]:
-                model.objects.all().delete()
-
-
+        fixtures = ['fixtures.json']
 
 class CharacterModelTests(BaseTests.BaseModelTests):
     def test_character_user_unique(self):

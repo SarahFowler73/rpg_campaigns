@@ -24,7 +24,7 @@
         }
     },
     {
-        "model": "campaigns.characters",
+        "model": "campaigns.character",
         "pk": 4,
         "fields": {
             "character": "Tyr Ma",
@@ -34,7 +34,7 @@
         }
     },
     {
-        "model": "campaigns.characters",
+        "model": "campaigns.character",
         "pk": 3,
         "fields": {
             "character": "Krug",
@@ -44,7 +44,7 @@
         }
     },
     {
-        "model": "campaigns.games",
+        "model": "campaigns.game",
         "pk": 12,
         "fields": {
             "title": "Dark Sun",
@@ -55,7 +55,7 @@
         }
     },
     {
-        "model": "campaigns.games",
+        "model": "campaigns.game",
         "pk": 4,
         "fields": {
             "title": "Microscope",
@@ -66,7 +66,7 @@
         }
     },
     {
-        "model": "campaigns.game_characters",
+        "model": "campaigns.gamecharacter",
         "pk": 1,
         "fields": {
             "game_id": 12,
@@ -74,7 +74,7 @@
         }
     },
     {
-        "model": "campaigns.game_characters",
+        "model": "campaigns.gamecharacter",
         "pk": 2,
         "fields": {
             "game_id": 12,
@@ -82,7 +82,7 @@
         }
     },
     {
-        "model": "campaigns.character_stats",
+        "model": "campaigns.characterstat",
         "pk": 1,
         "fields": {
             "game_character_id": 1,
@@ -92,7 +92,7 @@
         }
     },
     {
-        "model": "campaigns.character_stats",
+        "model": "campaigns.characterstat",
         "pk": 2,
         "fields": {
             "game_character_id": 1,
@@ -102,7 +102,7 @@
         }
     },
     {
-        "model": "campaigns.character_stats",
+        "model": "campaigns.characterstat",
         "pk": 3,
         "fields": {
             "game_character_id": 2,
@@ -112,18 +112,18 @@
         }
     },
     {
-        "model": "campaigns.game_character_characters",
+        "model": "campaigns.gamecharactercharacter",
         "pk": 1,
         "fields": {
             "from_character_id": 2,
             "to_character_id": 1,
             "bond": "Was saved from dying in the desert. Owes his life, and will protect her.",
-            "creation_date": "2016-01-18T12:34:56.000000Z",
+            "creation_date": "2016-01-18",
             "expiration_date": null
         }
     },
     {
-        "model": "campaigns.game_items",
+        "model": "campaigns.gameitem",
         "pk": 1,
         "fields": {
             "game_id": 12,
@@ -133,7 +133,7 @@
         }
     },
     {
-        "model": "campaigns.game_items",
+        "model": "campaigns.gameitem",
         "pk": 2,
         "fields": {
             "game_id": 12,
@@ -143,7 +143,7 @@
         }
     },
     {
-        "model": "campaigns.game_items",
+        "model": "campaigns.gameitem",
         "pk": 3,
         "fields": {
             "game_id": 12,
@@ -153,7 +153,7 @@
         }
     },
     {
-        "model": "campaigns.item_stats",
+        "model": "campaigns.itemstat",
         "pk": 1,
         "fields": {
             "item_id": 1,
@@ -163,7 +163,7 @@
         }
     },
     {
-        "model": "campaigns.item_stats",
+        "model": "campaigns.itemstat",
         "pk": 2,
         "fields": {
             "item_id": 1,
@@ -173,7 +173,7 @@
         }
     },
     {
-        "model": "campaigns.game_sessions",
+        "model": "campaigns.gamesession",
         "pk": 1,
         "fields": {
             "game_id": 12,
@@ -185,7 +185,7 @@
         }
     },
     {
-        "model": "campaigns.user_games",
+        "model": "campaigns.usergame",
         "pk": 1,
         "fields": {
             "user_id": 1,
@@ -198,7 +198,7 @@
         }
     },
     {
-        "model": "campaigns.user_games",
+        "model": "campaigns.usergame",
         "pk": 2,
         "fields": {
             "user_id": 2,
@@ -211,7 +211,7 @@
         }
     },
     {
-        "model": "campaigns.user_games",
+        "model": "campaigns.usergame",
         "pk": 3,
         "fields": {
             "user_id": 3,
