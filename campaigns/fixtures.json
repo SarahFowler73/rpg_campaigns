@@ -1,142 +1,179 @@
-{
-    "users": [
-        {
-            "id": 1,
+[
+    {
+        "model": "users",
+        "pk": 1,
+        "fields": {
             "username": "sarah",
             "email": "sarah@stuff.com"
-        },
-        {
-            "id": 2,
+        }
+    },
+    {
+        "model": "users",
+        "pk": 2,
+        "fields": {
             "username": "eric",
             "email": "eric@stuff.com"
-        },
-        {
-            "id": 3,
+        }
+    },
+    {
+        "model": "users",
+        "pk": 3,
+        "fields": {
             "username": "jeff",
             "email": "jeff@stuff.com"
         }
-    ],
-    "characters": [
-        {
-            "id": 4,
+    },
+    {
+        "model": "characters",
+        "pk": 4,
+        "fields": {
             "character": "Tyr Ma",
             "user_id": 1,
             "description": "Canibalistic, tribal halfling. Her people are descended from amphibians.",
             "creation_date": "2016-01-30T12:34:56.000000Z"
-        },
-        {
-            "id": 3,
+        }
+    },
+    {
+        "model": "characters",
+        "pk": 3,
+        "fields": {
             "character": "Krug",
             "user_id": 3,
             "description": "7-foot tall former gladiator. Indebted to Tyr Ma.",
             "creation_date": "2016-01-29T12:34:56.000000Z"
         }
-    ],
-    "games": [
-        {
-            "id": 12,
+    },
+    {
+        "model": "games",
+        "pk": 12,
+        "fields": {
             "title": "Dark Sun",
             "description": "In the weeks following the death of King Kalak, Tyr and the forest ridge are in danger.",
             "creator_id": 3,
             "creation_date": "2016-01-18T12:34:56.000000Z",
             "last_active_date": "2016-04-29T12:34:56.000000Z"
         },
-        {
-            "id": 4,
+        "model": "games",
+        "pk": 4,
+        "fields": {
             "title": "Microscope",
             "description": "The Rise and Fall of Atlantis",
             "creator_id": 1,
             "creation_date": "2015-01-18T12:34:56.000000Z",
             "last_active_date": "2015-04-29T12:34:56.000000Z"
         }
-    ],
-    "game_characters": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "game_characters",
+        "pk": 1,
+        "fields": {
             "game_id": 12,
             "character_id": 4
         },
-        {
-            "id": 2,
+    },
+    {
+        "model": "game_characters",
+        "pk": 2,
+        "fields": {
             "game_id": 12,
             "character_id": 3
         }
-    ],
-    "character_stats": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "character_stats",
+        "pk": 1,
+        "fields": {
             "game_character_id": 1,
             "stat_name": "ASPECT",
             "stat_value": "Shaman of a canibalistic tribe",
             "val_type": "TXT"
-        },
-        {
-            "id": 2,
+        }
+    },
+    {
+        "model": "character_stats",
+        "pk": 2,
+        "fields": {
             "game_character_id": 1,
             "stat_name": "ASPECT",
             "stat_value": "Ends justify the means",
             "val_type": "TXT"
-        },
-        {
-            "id": 3,
+        }
+    },
+    {
+        "model": "character_stats",
+        "pk": 3,
+        "fields": {
             "game_character_id": 2,
             "stat_name": "ASPECT",
             "stat_value": "Retired gladiator",
             "val_type": "TXT"
         }
-    ],
-    "game_character_characters": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "game_character_characters",
+        "pk": 1,
+        "fields": {
             "from_character_id": 2,
             "to_character_id": 1,
             "bond": "Was saved from dying in the desert. Owes his life, and will protect her.",
             "creation_date": "2016-01-18T12:34:56.000000Z",
             "expiration_date": null
         }
-    ],
-    "game_items": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "game_items",
+        "pk": 1,
+        "fields": {
             "game_id": 12,
             "name": "Tyr",
             "description": "City at the edge of the forest ridge",
             "item_type":  "LOC"
-        },
-        {
-            "id": 2,
+        }
+    },
+    {
+        "model": "game_items",
+        "pk": 2,
+        "fields": {
             "game_id": 12,
             "name": "Alderon",
             "description": "King of wherever",
             "item_type": "NPC"
-        },
-        {
-            "id": 3,
+        }
+    },
+    {
+        "model": "game_items",
+        "pk": 3,
+        "fields": {
             "game_id": 12,
             "name": "Spear of Whatever",
             "description": "Spear that was used to kill Kalak",
             "item_type": "ITM"
         }
-    ],
-    "item_stats": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "item_stats",
+        "pk": 1,
+        "fields": {
             "item_id": 1,
             "stat_name": "HISTORY",
             "stat_value": "Previously ruled by Kalak who is now dead, killed by mortal gladiators with a spear.",
             "val_type": "TXT"
-        },
-        {
-            "id": 2,
+        }
+    },
+    {
+        "model": "item_stats",
+        "pk": 2,
+        "fields": {
             "item_id": 1,
             "stat_name": "MAP",
             "stat_value": "./static/images/favicon.ico",
             "val_type": "IMG"
         }
-    ],
-    "game_sessions": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "game_sessions",
+        "pk": 1,
+        "fields": {
             "game_id": 12,
             "session_title": "First session",
             "session_text": "In the first session, we made characters.",
@@ -144,10 +181,11 @@
             "entry_created": "2016-01-18T12:34:56.000000Z",
             "last_updated": "2016-01-18T12:34:56.000000Z"
         }
-    ],
-    "user_games": [
-        {
-            "id": 1,
+    },
+    {
+        "model": "user_games",
+        "pk": 1,
+        "fields": {
             "user_id": 1,
             "game_id": 12,
             "is_owner": false,
@@ -156,8 +194,11 @@
             "last_active_date": "2016-01-18T12:34:56.000000Z",
             "exp_date": null
         },
-        {
-            "id": 2,
+    },
+    {
+        "model": "user_games",
+        "pk": 2,
+        "fields": {
             "user_id": 2,
             "game_id": 12,
             "is_owner": false,
@@ -166,8 +207,11 @@
             "last_active_date": null,
             "exp_date": null
         },
-        {
-            "id": 3,
+    },
+    {
+        "model": "user_games",
+        "pk": 3,
+        "fields": {
             "user_id": 3,
             "game_id": 12,
             "is_owner": false,
@@ -176,5 +220,5 @@
             "last_active_date": "2016-01-18T12:34:56.000000Z",
             "exp_date": null
         }
-    ]
-}
+    }
+]
