@@ -20,14 +20,22 @@ class GameSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
         view_name='campaigns:game_characters-detail'
-    )  #GameCharacterSerializer(many=True)
-    # users = UserGameSerializer(many=True)
+    )
     players = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
         view_name='campaigns:players-detail'
     )
-
+    sessions = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='campaigns:sessions-detail'
+    )
+    items = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='campaigns:items-detail'
+    )
     def get_creator_name(self, obj):
         return models.Game.objects.get(id=obj.id).creator.username
 
@@ -44,11 +52,11 @@ class GameCharacterSerializer(serializers.ModelSerializer):
     stats = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        view_name='campaigns:'
-    ) # CharacterStatSerializer(many=True)
+        view_name='campaigns:character_stats-detail'
+    )
     class Meta:
         model = models.GameCharacter
-        fields = '__all__' #'character', 'stats')
+        fields = '__all__'
 
 
 class GameItemSerializer(serializers.ModelSerializer):
@@ -74,24 +82,3 @@ class ItemStatSerializer(serializers.ModelSerializer):
 class UserGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserGame
-
-
-
-# class GameDetailSerializer(serializers.ModelSerializer):
-#     pass
-    # characters = GameCharacterSerializer(many=True)
-    # items = GameItemSerializer(many=True)
-    # sessions = GameSessionSerializer(many=True)
-    # users = UserGameSerializer(many=True)
-    #
-    # class Meta:
-    #     model = models.Game
-    #     fields = (
-    #         'title',
-    #         'creator',
-    #         'description',
-    #         'characters',
-    #         'items',
-    #         'sessions',
-    #         'users'
-    #     )
