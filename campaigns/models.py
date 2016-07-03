@@ -105,7 +105,7 @@ class GameSession(models.Model):
 
 class UserGame(models.Model):
     user = models.ForeignKey(User, related_name='games')
-    game = models.ForeignKey(Game, related_name='users')
+    game = models.ForeignKey(Game, related_name='players')
     is_owner = models.BooleanField(default=False)
     status = models.CharField(max_length=7,
         choices=(
