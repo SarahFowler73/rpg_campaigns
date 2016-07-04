@@ -4,6 +4,11 @@ from . import models
 
 
 class CharacterSerializer(serializers.ModelSerializer):
+    games = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='campaigns:game_characters-detail'
+    )
     class Meta:
         model = models.Character
         fields = '__all__'
@@ -26,15 +31,15 @@ class GameSerializer(serializers.ModelSerializer):
         read_only=True,
         view_name='campaigns:players-detail'
     )
-    sessions = serializers.HyperlinkedRelatedField(
+    sessions = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True,
-        view_name='campaigns:sessions-detail'
+        # view_name='campaigns:sessions-detail'
     )
-    items = serializers.HyperlinkedRelatedField(
+    items = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True,
-        view_name='campaigns:items-detail'
+        # view_name='campaigns:items-detail'
     )
     def get_creator_name(self, obj):
         return models.Game.objects.get(id=obj.id).creator.username
@@ -45,14 +50,9 @@ class GameSerializer(serializers.ModelSerializer):
 
 
 class GameCharacterSerializer(serializers.ModelSerializer):
-    character = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='campaigns:characters-detail'
-    )
-    stats = serializers.HyperlinkedRelatedField(
+    stats = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True,
-        view_name='campaigns:character_stats-detail'
     )
     class Meta:
         model = models.GameCharacter
@@ -60,10 +60,10 @@ class GameCharacterSerializer(serializers.ModelSerializer):
 
 
 class GameItemSerializer(serializers.ModelSerializer):
-    stats = serializers.HyperlinkedRelatedField(
+    stats = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True,
-        view_name='campaigns:item_stats'
+        # view_name='campaigns:item_stats'
     )
     class Meta:
         model = models.GameItem
