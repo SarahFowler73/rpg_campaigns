@@ -7,8 +7,11 @@ router = DefaultRouter()
 
 router.register(r'characters', views.CharacterView, base_name='characters')
 router.register(r'game_characters', views.GameCharacterView, base_name='game_characters')
-router.register(r'character_stats', views.CharacterStatView, base_name='character_stats')
-
+router.register(
+    r'game_characters/(?P<game_character_id>[0-9]+)/character_stats',
+    views.CharacterStatView,
+    base_name='character_stats'
+)
 
 router.register(r'games', views.GameView, base_name='games')
 router.register(
