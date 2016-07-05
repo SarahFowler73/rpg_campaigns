@@ -41,7 +41,7 @@ class GameCharacterCharacter(models.Model):
     from_character = models.ForeignKey(GameCharacter, related_name="bonds")
     to_character = models.ForeignKey(GameCharacter, related_name="bonded_to")
     bond = models.CharField(max_length=255)
-    creation_date = models.DateField(auto_now_add=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
     expiration_date = models.DateField(null=True)
 
     class Meta:

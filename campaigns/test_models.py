@@ -88,7 +88,7 @@ class GameCharacterCharacterModelTests(BaseTests.BaseModelTests):
             to_character_id=1,
             bond="New bond.")
         now = timezone.now()
-        self.assertEqual(bond.creation_date, now.date())
+        self.assertLess(bond.creation_date, now)
 
 
 class GameItemModelTests(BaseTests.BaseModelTests):

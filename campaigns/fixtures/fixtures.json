@@ -118,7 +118,7 @@
             "from_character_id": 2,
             "to_character_id": 1,
             "bond": "Was saved from dying in the desert. Owes his life, and will protect her.",
-            "creation_date": "2016-01-18",
+            "creation_date": "2016-01-18T12:34:56.000000Z",
             "expiration_date": null
         }
     },
@@ -179,7 +179,7 @@
             "game_id": 12,
             "session_title": "First session",
             "session_text": "In the first session, we made characters.",
-            "session_date": "2016-01-18T12:34:56.000000Z",
+            "session_date": "2016-01-18",
             "entry_created": "2016-01-18T12:34:56.000000Z",
             "last_updated": "2016-01-18T12:34:56.000000Z"
         }
