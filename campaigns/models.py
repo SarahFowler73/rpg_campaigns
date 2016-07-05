@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Character(models.Model):
     character = models.CharField(max_length=255, null=False)
     user = models.ForeignKey(User, related_name='characters')
-    creation_date = models.DateTimeField(auto_now=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
 
     class Meta:
@@ -30,7 +30,7 @@ class Game(models.Model):
     creator = models.ForeignKey(User, related_name='created_games')
     creation_date = models.DateTimeField(auto_now=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    last_active_date = models.DateTimeField(blank=True, null=True)
+    last_active_date = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     class Meta:
         unique_together = (('title', 'creator'),)
@@ -95,9 +95,9 @@ class GameSession(models.Model):
     game = models.ForeignKey(Game, related_name='sessions')
     session_title = models.CharField(max_length=255, default='')
     session_text = models.TextField(default='')
-    session_date = models.DateTimeField(null=True)
-    entry_created = models.DateTimeField(auto_now=True)
-    last_updated = models.DateTimeField(null=True)
+    session_date = models.DateField(null=True)
+    entry_created = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(null=True, auto_now=True)
 
     class Meta:
         ordering = ['session_date',]
@@ -116,8 +116,8 @@ class UserGame(models.Model):
         )
     )
     join_date = models.DateTimeField(blank=True, null=True)
-    last_active_date = models.DateTimeField(blank=True, null=True)
-    exp_date = models.DateTimeField(blank=True, null=True)
+    last_active_date = models.DateTimeField(blank=True, null=True, auto_now=True)
+    exp_date = models.DateField(blank=True, null=True)
 
     class Meta:
         unique_together = (('user', 'game'),)
