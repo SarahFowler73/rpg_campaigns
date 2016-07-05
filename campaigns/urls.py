@@ -5,32 +5,32 @@ from . import views
 
 router = DefaultRouter()
 
-router.register(r'characters', views.CharacterView, base_name='characters')
-router.register(r'game_characters', views.GameCharacterView, base_name='game_characters')
+router.register(r'character', views.CharacterView, base_name='character')
+router.register(r'game_character', views.GameCharacterView, base_name='game_character')
 router.register(
-    r'game_characters/(?P<game_character_id>[0-9]+)/character_stats',
+    r'game_character/(?P<game_character_id>[0-9]+)/character_stat',
     views.CharacterStatView,
-    base_name='character_stats'
+    base_name='character_stat'
 )
 
-router.register(r'games', views.GameView, base_name='games')
+router.register(r'game', views.GameView, base_name='game')
 router.register(
-    r'games/(?P<game_id>[0-9]+)/items',
+    r'game/(?P<game_id>[0-9]+)/item',
     views.GameItemView,
-    base_name='items'
+    base_name='item'
 )
 router.register(
-    r'games/(?P<game_id>[0-9]+)/items/(?P<item_id>[0-9]+/stats)',
+    r'game/(?P<game_id>[0-9]+)/item/(?P<item_id>[0-9]+)/stat',
     views.ItemStatView,
-    base_name='item_stats'
+    base_name='item_stat'
 )
 router.register(
-    r'games/(?P<game_id>[0-9]+)/sessions',
+    r'game/(?P<game_id>[0-9]+)/session',
     views.GameSessionView,
-    base_name='sessions'
+    base_name='session'
 )
 
-router.register(r'players', views.UserGameView, base_name='players')
+router.register(r'player', views.UserGameView, base_name='player')
 
 urlpatterns = [
     # url(r'game/(?P<pk>[0-9]+)/?$', views.GameDetailView.as_view(), name='game_detail'),
