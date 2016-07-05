@@ -19,7 +19,7 @@ class CharacterStatView(viewsets.ModelViewSet):
     serializer_class = serializers.CharacterStatSerializer
     def get_queryset(self):
         return models.CharacterStat.objects.filter(
-            game_character_id=self.kwargs.get('game_character_id'),
+            game_character_id=self.kwargs.get('game_character'),
             game_character__game__players__user_id=self.request.user.id
         )
 
@@ -27,7 +27,7 @@ class CharacterStatView(viewsets.ModelViewSet):
 class GameView(viewsets.ModelViewSet):
     serializer_class = serializers.GameSerializer
     def get_queryset(self):
-        return models.Game.objects.filter(
+        return models.Game.objects.prefetch_related().filter(
             players__user_id=self.request.user.id
         )
 
@@ -51,14 +51,11 @@ class GameItemView(viewsets.ModelViewSet):
 
 class GameSessionView(viewsets.ModelViewSet):
     serializer_class = serializers.GameSessionSerializer
-    queryset = []
-
-    @list_route
-    def sessions(self, request):
+    def get_queryset(self):
         return models.GameSession.objects.filter(
             game__players__user_id=self.request.user.id,
             game_id=self.kwargs.get('game_id')
-        ).ordering('session_date', 'last_updated')
+        ).order_by('session_date', 'last_updated')
 
 
 class ItemStatView(viewsets.ModelViewSet):
