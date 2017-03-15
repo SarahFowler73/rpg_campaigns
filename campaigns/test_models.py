@@ -30,6 +30,15 @@ class CharacterModelTests(BaseTests.BaseModelTests):
         self.assertLess(character.creation_date, now)
 
 
+class GameCharacterModelTests(BaseTests.BaseModelTests):
+
+    def test_game_character_unique(self):
+        with self.assertRaises(IntegrityError):
+            GameCharacter.objects.create(
+                character_id=4,
+                game_id=12)
+
+
 class GameModelTests(BaseTests.BaseModelTests):
     def test_game_creator_unique(self):
         with self.assertRaises(IntegrityError):
@@ -54,24 +63,6 @@ class GameModelTests(BaseTests.BaseModelTests):
             )
         except :
             self.fail('Game should be create-able without description')
-
-
-class GameCharacterModelTests(BaseTests.BaseModelTests):
-
-    def test_game_character_unique(self):
-        with self.assertRaises(IntegrityError):
-            GameCharacter.objects.create(
-                character_id=4,
-                game_id=12)
-
-
-class UserGameModelTests(BaseTests.BaseModelTests):
-    def test_user_game_unique(self):
-        with self.assertRaises(IntegrityError):
-            UserGame.objects.create(
-                user_id=3,
-                game_id=12,
-                status="PENDING")
 
 
 class GameCharacterCharacterModelTests(BaseTests.BaseModelTests):
@@ -123,3 +114,12 @@ class ItemStatModelTests(BaseTests.BaseModelTests):
 
 class GameSessionModelTests(BaseTests.BaseModelTests):
     pass
+
+
+class UserGameModelTests(BaseTests.BaseModelTests):
+    def test_user_game_unique(self):
+        with self.assertRaises(IntegrityError):
+            UserGame.objects.create(
+                user_id=3,
+                game_id=12,
+                status="PENDING")

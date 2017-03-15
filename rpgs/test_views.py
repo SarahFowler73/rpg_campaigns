@@ -62,7 +62,9 @@ class LoginViewTest(TestCase):
 
     def test_redirects_after_successful_login(self):
         user = {'username': 'jim', 'password': 'passwd1'}
-        User.objects.create_user(email='jim@example.com', **user)
+        user_inst = User.objects.create_user(
+            email='jim@example.com', **user
+        )
 
         response = self.client.post(
             reverse('login'),
@@ -70,6 +72,7 @@ class LoginViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('index'))
+        self.assertTrue(user_inst.is_authenticated())
 
     def test_does_not_redirect_on_unsuccessful_login(self):
         fake_user = {'username': 'fake', 'password': 'fake_pwd'}
@@ -82,4 +85,21 @@ class LoginViewTest(TestCase):
 
 
 class LogoutViewTest(TestCase):
-    pass
+    user = {'username': 'jim', 'password': 'passwd1'}
+
+    def setUp(self):
+        self.user_inst = User.objects.create_user(
+            email='jim@example.com', **self.user
+        )
+        self.client.login(**self.user)
+
+    def test_logs_out_authenticated_user(self):
+        self.assertTrue(self.user_inst.is_authenticated())
+
+        response = self.client.post(
+            reverse('logout'),
+            {'user': self.user_inst}
+        )
+        print(response)
+        self.user_inst.refresh_from_db()
+        self.assertFalse(self.user_inst.is_authenticated())
